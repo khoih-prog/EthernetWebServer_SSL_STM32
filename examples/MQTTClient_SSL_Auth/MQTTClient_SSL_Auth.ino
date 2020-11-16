@@ -43,6 +43,7 @@ SSLClientParameters mTLS = SSLClientParameters::fromPEM(my_cert, sizeof my_cert,
 
 // Update these with values suitable for your network.
 const char* mqttServer = "broker.example"; // Broker address
+//const char* mqttServer = "broker.emqx.io"; // Broker address
 //IPAddress mqttServer(172, 16, 0, 2);
 
 void callback(char* topic, byte* payload, unsigned int length) 
@@ -81,6 +82,8 @@ void reconnect()
       ethClientSSL.flush();
       // ... and resubscribe
       client.subscribe("inTopic");
+      // for loopback testing
+      client.subscribe("outTopic");
       // This is a workaround to address https://github.com/OPEnSLab-OSU/SSLClient/issues/9
       ethClientSSL.flush();
     } 

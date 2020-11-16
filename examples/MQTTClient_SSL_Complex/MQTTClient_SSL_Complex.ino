@@ -1,20 +1,20 @@
 /****************************************************************************************************************************
-  MQTTClient_SSL.ino - Dead simple SSL MQTT Client for Ethernet shields
+  MQTTClient_SSL_Complex.ino - Dead simple SSL MQTT Client for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
-       
+
   Version: 1.1.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A, 
+  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A,
                                   W5x00 using Ethernetx, ENC28J60 using EthernetENC and UIPEthernet libraries
  *****************************************************************************************************************************/
 
@@ -22,7 +22,7 @@
   Basic MQTT example (with SSL!)
   This sketch demonstrates the basic capabilities of the library.
   It connects to an MQTT server then:
-  - publishes {Hello from MQTTClient_SSL on NUCLEO_F767ZI} to the topic [STM32_Pub]
+  - publishes {Hello from MQTTClient_SSL on NUCLEO_F767ZI, millis = xxxxx} to the topic [STM32_Pub]
   - subscribes to the topic [STM32_Sub], printing out any messages
     it receives. NB - it assumes the received payloads are strings not binary
   It will reconnect to the server if the connection is lost using a blocking
@@ -56,17 +56,17 @@ unsigned long lastMsg = 0;
 // Initialize the SSL client library
 // Arguments: EthernetClient, our trust anchors
 
-void callback(char* topic, byte* payload, unsigned int length) 
+void callback(char* topic, byte* payload, unsigned int length)
 {
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
-  
-  for (int i = 0; i < length; i++) 
+
+  for (int i = 0; i < length; i++)
   {
     Serial.print((char)payload[i]);
   }
-  
+
   Serial.println();
 }
 
@@ -75,10 +75,10 @@ EthernetSSLClient ethClientSSL(ethClient, TAs, (size_t)TAs_NUM);
 
 PubSubClient client(mqttServer, 8883, callback, ethClientSSL);
 
-void reconnect() 
+void reconnect()
 {
   // Loop until we're reconnected
-  while (!client.connected()) 
+  while (!client.connected())
   {
     Serial.print("Attempting MQTT connection to ");
     Serial.print(mqttServer);
@@ -89,7 +89,7 @@ void reconnect()
       Serial.println("...connected");
       
       // Once connected, publish an announcement...
-      String data = "Hello from MQTTClient_SSL on " + String(BOARD_NAME);
+      String data = "Hello from MQTTClient_SSL_Complex on " + String(BOARD_NAME);
 
       client.publish(TOPIC, data.c_str());
 
@@ -105,13 +105,13 @@ void reconnect()
       client.subscribe(TOPIC);
       // This is a workaround to address https://github.com/OPEnSLab-OSU/SSLClient/issues/9
       //ethClientSSL.flush();
-    } 
-    else 
+    }
+    else
     {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
-      
+
       // Wait 5 seconds before retrying
       delay(5000);
     }
@@ -124,11 +124,11 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.print("\nStart MQTTClient_SSL on " + String(BOARD_NAME));
+  Serial.print("\nStart MQTTClient_SSL_Complex on " + String(BOARD_NAME));
   Serial.println(" with " + String(SHIELD_TYPE));
 
   // Enable mutual TLS with SSLClient
-  ethClientSSL.setMutualAuthParams(mTLS);
+  //ethClientSSL.setMutualAuthParams(mTLS);
 
   ET_LOGWARN3(F("Board :"), BOARD_NAME, F(", setCsPin:"), USE_THIS_SS_PIN);
 
@@ -139,29 +139,29 @@ void setup()
   ET_LOGWARN1(F("SS:"),   SS);
   ET_LOGWARN(F("========================="));
 
-  #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
-    // For other boards, to change if necessary
-    #if ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2  || USE_ETHERNET_ENC )
-      // Must use library patch for Ethernet, Ethernet2, EthernetLarge libraries
-      Ethernet.init (USE_THIS_SS_PIN);
-    
-    #elif USE_ETHERNET3
-      // Use  MAX_SOCK_NUM = 4 for 4K, 2 for 8K, 1 for 16K RX/TX buffer
-      #ifndef ETHERNET3_MAX_SOCK_NUM
-        #define ETHERNET3_MAX_SOCK_NUM      4
-      #endif
-    
-      Ethernet.setCsPin (USE_THIS_SS_PIN);
-      Ethernet.init (ETHERNET3_MAX_SOCK_NUM);
-  
-    #elif USE_CUSTOM_ETHERNET
-      // You have to add initialization for your Custom Ethernet here
-      // This is just an example to setCSPin to USE_THIS_SS_PIN, and can be not correct and enough
-      //Ethernet.init(USE_THIS_SS_PIN);
-      
-    #endif  //( ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2  || USE_ETHERNET_ENC )
-  #endif
-  
+#if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
+  // For other boards, to change if necessary
+#if ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2  || USE_ETHERNET_ENC )
+  // Must use library patch for Ethernet, Ethernet2, EthernetLarge libraries
+  Ethernet.init (USE_THIS_SS_PIN);
+
+#elif USE_ETHERNET3
+  // Use  MAX_SOCK_NUM = 4 for 4K, 2 for 8K, 1 for 16K RX/TX buffer
+#ifndef ETHERNET3_MAX_SOCK_NUM
+#define ETHERNET3_MAX_SOCK_NUM      4
+#endif
+
+  Ethernet.setCsPin (USE_THIS_SS_PIN);
+  Ethernet.init (ETHERNET3_MAX_SOCK_NUM);
+
+#elif USE_CUSTOM_ETHERNET
+  // You have to add initialization for your Custom Ethernet here
+  // This is just an example to setCSPin to USE_THIS_SS_PIN, and can be not correct and enough
+  //Ethernet.init(USE_THIS_SS_PIN);
+
+#endif  //( ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2  || USE_ETHERNET_ENC )
+#endif
+
   // start the ethernet connection and the server:
   // Use DHCP dynamic IP and random mac
   uint16_t index = millis() % NUMBER_OF_MAC;
@@ -176,26 +176,25 @@ void setup()
 
 #define MQTT_PUBLISH_INTERVAL_MS       5000L
 
-String data         = "Hello from MQTTClient_SSL on " + String(BOARD_NAME);
-const char *pubData = data.c_str();
-
-void loop() 
+void loop()
 {
   static unsigned long now;
   
-  if (!client.connected()) 
+  if (!client.connected())
   {
     reconnect();
   }
 
   // Sending Data
   now = millis();
-  
+
   if (now - lastMsg > MQTT_PUBLISH_INTERVAL_MS)
   {
     lastMsg = now;
 
-    if (!client.publish(TOPIC, pubData))
+    String data = "Hello from MQTTClient_SSL_Complex on " + String(BOARD_NAME) + ", millis = " + String(millis());
+
+    if (!client.publish(TOPIC, data.c_str()))
     {
       Serial.println("Message failed to send.");
     }
