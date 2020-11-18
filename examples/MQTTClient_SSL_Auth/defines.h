@@ -9,13 +9,6 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
-       
-  Version: 1.1.0
-
-  Version Modified By   Date      Comments
-  ------- -----------  ---------- -----------
-  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A, 
-                                  W5x00 using Ethernetx, ENC28J60 using EthernetENC and UIPEthernet libraries
  *****************************************************************************************************************************/
 
 #ifndef defines_h

@@ -117,6 +117,11 @@ Check [`EthernetWebServer Library Issue: Support for STM32F Series`](https://git
 ---
 ---
 
+### Release v1.1.1
+
+1. Permit sites with "Chain could not be linked to a trust anchor" such as mqtt.thingstream.io.
+2. Add example MQTTS_ThingStream to demonstrate new feature
+
 ### Release v1.1.0
 
 1. Initial coding for **STM32F/L/H/G/WB/MP1 boards (with 32+K Flash) running LAN8742A, W5x00 or ENC28J60 shields** using SSL.
@@ -901,6 +906,7 @@ If for some unfortunate reason you need SSL 3.0 or SSL 2.0, you will need to mod
 16. [WebClientRepeating](examples/WebClientRepeating)
 17. [WebClient_SSL](examples/WebClient_SSL)
 18. [WebServer](examples/WebServer)
+19. [**MQTTS_ThingStream**](examples/MQTTS_ThingStream). New from v1.1.1
 
 ---
 ---
@@ -1864,9 +1870,105 @@ Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, 
 ```
 
 ---
+
+9. The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
+
+```
+Start MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
+[ETHERNET_WEBSERVER] Default SPI pinout:
+[ETHERNET_WEBSERVER] MOSI: 11
+[ETHERNET_WEBSERVER] MISO: 12
+[ETHERNET_WEBSERVER] SCK: 13
+[ETHERNET_WEBSERVER] SS: 10
+[ETHERNET_WEBSERVER] =========================
+You're connected to the network, IP = 192.168.2.97
+***************************************
+esp32-sniffer/12345678/ble
+***************************************
+Attempting MQTT connection to mqtt.thingstream.io
+...connected
+Published connection message successfully!
+Subcribed to: esp32-sniffer/12345678/ble
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+```
+
+---
+
+10. The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
+
+```
+Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
+[ETHERNET_WEBSERVER] Default SPI pinout:
+[ETHERNET_WEBSERVER] MOSI: 11
+[ETHERNET_WEBSERVER] MISO: 12
+[ETHERNET_WEBSERVER] SCK: 13
+[ETHERNET_WEBSERVER] SS: 10
+[ETHERNET_WEBSERVER] =========================
+You're connected to the network, IP = 192.168.2.97
+***************************************
+esp32-sniffer/12345678/ble
+***************************************
+Attempting MQTT connection to mqtt.thingstream.io
+...connected
+Published connection message successfully!
+Subcribed to: esp32-sniffer/12345678/ble
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+```
+
+---
+
+11. The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
+
+```
+Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
+[ETHERNET_WEBSERVER] Default SPI pinout:
+[ETHERNET_WEBSERVER] MOSI: 11
+[ETHERNET_WEBSERVER] MISO: 12
+[ETHERNET_WEBSERVER] SCK: 13
+[ETHERNET_WEBSERVER] SS: 10
+[ETHERNET_WEBSERVER] =========================
+
+Ethernet3 W5500 init, using SPI_CS = 10, number of sockets = 4
+You're connected to the network, IP = 192.168.2.107
+***************************************
+esp32-sniffer/12345678/ble
+***************************************
+Attempting MQTT connection to mqtt.thingstream.io
+...connected
+Published connection message successfully!
+Subcribed to: esp32-sniffer/12345678/ble
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+```
+
+---
 ---
 
 ## Releases History
+
+### Release v1.1.1
+
+1. Permit sites with "Chain could not be linked to a trust anchor" such as mqtt.thingstream.io.
+2. Add example MQTTS_ThingStream to demonstrate new feature
 
 ### Release v1.1.0
 

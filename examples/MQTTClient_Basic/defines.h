@@ -9,14 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
-       
-  Version: 1.1.0
-
-  Version Modified By   Date      Comments
-  ------- -----------  ---------- -----------
-  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A, 
-                                  W5x00 using Ethernetx, ENC28J60 using EthernetENC and UIPEthernet libraries
- *****************************************************************************************************************************/
+ ***************************************************************************************************************************************/
 
 #ifndef defines_h
 #define defines_h
@@ -35,8 +28,8 @@
 // If USE_BUILTIN_ETHERNET == false and USE_UIP_ETHERNET == false => 
 // either use W5x00 with EthernetXYZ library
 // or ENC28J60 with EthernetENC library
-#define USE_BUILTIN_ETHERNET    true
-//#define USE_BUILTIN_ETHERNET    false
+//#define USE_BUILTIN_ETHERNET    true
+#define USE_BUILTIN_ETHERNET    false
 
 //#define USE_UIP_ETHERNET        true
 #define USE_UIP_ETHERNET        false
@@ -49,12 +42,12 @@
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one if the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
-  #define USE_ETHERNET_ESP8266  false
-  #define USE_ETHERNET_ENC      true
+  #define USE_ETHERNET          false //true
+  #define USE_ETHERNET2         false //true
+  #define USE_ETHERNET3         false //true
+  #define USE_ETHERNET_LARGE    true
+  #define USE_ETHERNET_ESP8266  false //true
+  #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   false
 #endif
 

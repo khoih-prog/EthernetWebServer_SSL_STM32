@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  MQTTClient_SSL_Auth.ino - Dead simple SSL MQTT Client for Ethernet shields
+  MQTTS_ThingStream.ino - Dead simple SSL MQTT Client for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
@@ -12,16 +12,20 @@
  *****************************************************************************************************************************/
 
 /*
-  Basic MQTT example (with SSL!) with Authentication
+  Basic MQTT example (with SSL!)
   This sketch demonstrates the basic capabilities of the library.
   It connects to an MQTT server then:
-  - providing username and password
-  - publishes "hello world" to the topic "outTopic"
-  - subscribes to the topic "inTopic", printing out any messages
+  - publishes {Hello from MQTTS_ThingStream on NUCLEO_F767ZI} to the topic [STM32_Pub]
+  - subscribes to the topic [STM32_Sub], printing out any messages
     it receives. NB - it assumes the received payloads are strings not binary
   It will reconnect to the server if the connection is lost using a blocking
   reconnect function. See the 'mqtt_reconnect_nonblocking' example for how to
   achieve the same result without blocking the main loop.
+
+  You will need to populate "certificates.h" with your trust anchors
+  (see https://github.com/OPEnSLab-OSU/SSLClient/blob/master/TrustAnchors.md)
+  and my_cert/my_key with your certificate/private key pair
+  (see https://github.com/OPEnSLab-OSU/SSLClient#mtls).
 */
 
 #include "defines.h"
@@ -34,14 +38,57 @@ const char my_key[]   = "FIXME";
 
 SSLClientParameters mTLS = SSLClientParameters::fromPEM(my_cert, sizeof my_cert, my_key, sizeof my_key);
 
-// Update these with values suitable for your network.
-const char* mqttServer = "broker.example"; // Broker address
-//const char* mqttServer = "broker.emqx.io"; // Broker address
-//IPAddress mqttServer(172, 16, 0, 2);
+#define USING_THINGSTREAM_IO      true
 
-void callback(char* topic, byte* payload, unsigned int length) 
+#if USING_THINGSTREAM_IO
+
+const char *MQTT_PREFIX_TOPIC   = "esp32-sniffer/";
+const char *MQTT_ANNOUNCE_TOPIC = "/status";
+const char *MQTT_CONTROL_TOPIC  = "/control";
+const char *MQTT_BLE_TOPIC      = "/ble";
+
+
+// GOT FROM ThingsStream!
+const char *MQTT_SERVER     = "mqtt.thingstream.io";
+const char *MQTT_USER       = "MQTT_USER";
+const char *MQTT_PASS       = "MQTT_PASS";
+const char *MQTT_CLIENT_ID  = "MQTT_CLIENT_ID";
+
+String topic    = MQTT_PREFIX_TOPIC + String("12345678") + MQTT_BLE_TOPIC;
+String subTopic = MQTT_PREFIX_TOPIC + String("12345678") + MQTT_BLE_TOPIC;
+
+#else
+const char* MQTT_SERVER = "broker.emqx.io";        // Broker address
+
+const char*  ID         = "MQTTClient_SSL-Client";  // Name of our device, must be unique
+String      topic       = "STM32_Pub";              // Topic to subcribe to
+String      subTopic    = "STM32_Sub";              // Topic to subcribe to
+
+#endif
+
+void mqtt_receive_callback(char* topic, byte* payload, unsigned int length);
+
+const int   MQTT_PORT           = 8883; //if you use SSL //1883 no SSL
+
+unsigned long lastMsg = 0;
+
+// Initialize the SSL client library
+// Arguments: EthernetClient, our trust anchors
+
+
+EthernetClient    ethClient;
+EthernetSSLClient ethClientSSL(ethClient, TAs, (size_t)TAs_NUM, 1, EthernetSSLClient::SSL_NONE);
+// Debug, max_sessions = 1, debug = SSL_INFO
+//EthernetSSLClient ethClientSSL(ethClient, TAs, (size_t)TAs_NUM, 1, EthernetSSLClient::SSL_INFO);
+
+PubSubClient client(MQTT_SERVER, MQTT_PORT, mqtt_receive_callback, ethClientSSL);
+
+/*
+   Called whenever a payload is received from a subscribed MQTT topic
+*/
+void mqtt_receive_callback(char* topic, byte* payload, unsigned int length) 
 {
-  Serial.print("Message arrived [");
+  Serial.print("MQTT Message receive [");
   Serial.print(topic);
   Serial.print("] ");
   
@@ -53,32 +100,45 @@ void callback(char* topic, byte* payload, unsigned int length)
   Serial.println();
 }
 
-EthernetClient    ethClient;
-EthernetSSLClient ethClientSSL(ethClient, TAs, (size_t)TAs_NUM);
-
-PubSubClient      client(mqttServer, 8883, callback, ethClientSSL);
 
 void reconnect() 
 {
   // Loop until we're reconnected
   while (!client.connected()) 
   {
-    Serial.print("Attempting MQTT connection...");
-    
+    Serial.print("Attempting MQTT connection to ");
+    Serial.println(MQTT_SERVER);
+
     // Attempt to connect
-    if (client.connect("arduinoClient", "testuser", "testpass")) 
+
+#if USING_THINGSTREAM_IO
+    int connect_status = client.connect(MQTT_CLIENT_ID, MQTT_USER, MQTT_PASS, topic.c_str(), 2, false, "");
+#else
+    int connect_status = client.connect(ID);
+#endif
+
+    if (connect_status)                                
     {
-      Serial.println("connected");
+      Serial.println("...connected");
+      
       // Once connected, publish an announcement...
-      client.publish("outTopic", "hello world");
+      String data = "Hello from MQTTS_ThingStream on " + String(BOARD_NAME);
+
+      client.publish(topic.c_str(), data.c_str());
+
+      Serial.println("Published connection message successfully!");
+     
+      Serial.print("Subcribed to: ");
+      Serial.println(subTopic);
+      
       // This is a workaround to address https://github.com/OPEnSLab-OSU/SSLClient/issues/9
-      ethClientSSL.flush();
+      //ethClientSSL.flush();
       // ... and resubscribe
-      client.subscribe("inTopic");
+      client.subscribe(subTopic.c_str());
       // for loopback testing
-      client.subscribe("outTopic");
+      client.subscribe(topic.c_str());
       // This is a workaround to address https://github.com/OPEnSLab-OSU/SSLClient/issues/9
-      ethClientSSL.flush();
+      //ethClientSSL.flush();
     } 
     else 
     {
@@ -98,12 +158,12 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.print("\nStart MQTTClient_SSL_Auth on " + String(BOARD_NAME));
+  Serial.print("\nStart MQTTS_ThingStream on " + String(BOARD_NAME));
   Serial.println(" with " + String(SHIELD_TYPE));
 
   // Enable mutual TLS with SSLClient
-  ethClientSSL.setMutualAuthParams(mTLS);
-  
+  //ethClientSSL.setMutualAuthParams(mTLS);
+
   ET_LOGWARN3(F("Board :"), BOARD_NAME, F(", setCsPin:"), USE_THIS_SS_PIN);
 
   ET_LOGWARN(F("Default SPI pinout:"));
@@ -146,18 +206,45 @@ void setup()
   // you're connected now, so print out the data
   Serial.print(F("You're connected to the network, IP = "));
   Serial.println(Ethernet.localIP());
-  
-  // Note - the default maximum packet size is 128 bytes. If the
+
+  // Note - the default maximum packet size is 256 bytes. If the
   // combined length of clientId, username and password exceed this use the
   // following to increase the buffer size:
-  // client.setBufferSize(255);
+  //client.setBufferSize(256);
+  
+  Serial.println("***************************************");
+  Serial.println(topic);
+  Serial.println("***************************************");
 }
+
+#define MQTT_PUBLISH_INTERVAL_MS      5000L
+
+String data         = "Hello from MQTTS_ThingStream on " + String(BOARD_NAME) + " with " + String(SHIELD_TYPE);
+const char *pubData = data.c_str();
 
 void loop() 
 {
+  static unsigned long now;
+  
   if (!client.connected()) 
   {
     reconnect();
+  }
+
+  // Sending Data
+  now = millis();
+  
+  if (now - lastMsg > MQTT_PUBLISH_INTERVAL_MS)
+  {
+    lastMsg = now;
+
+    if (!client.publish(topic.c_str(), pubData))
+    {
+      Serial.println("Message failed to send.");
+    }
+
+    Serial.print("MQTT Message Send : " + topic + " => ");
+    Serial.println(data);
   }
   
   client.loop();
