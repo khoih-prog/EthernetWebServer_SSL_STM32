@@ -25,6 +25,8 @@
 // Debug Level from 0 to 4
 #define _ETHERNET_WEBSERVER_LOGLEVEL_       2
 
+#define SSLCLIENT_DEBUG_LEVEL               0
+
 // If USE_BUILTIN_ETHERNET == false and USE_UIP_ETHERNET == false => 
 // either use W5x00 with EthernetXYZ library
 // or ENC28J60 with EthernetENC library

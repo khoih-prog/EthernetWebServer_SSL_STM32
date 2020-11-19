@@ -117,6 +117,11 @@ Check [`EthernetWebServer Library Issue: Support for STM32F Series`](https://git
 ---
 ---
 
+### Release v1.1.2
+
+1. Add SSL debug feature.
+2. Enhance examples.
+
 ### Release v1.1.1
 
 1. Permit sites with "Chain could not be linked to a trust anchor" such as mqtt.thingstream.io.
@@ -1965,6 +1970,11 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_T
 
 ## Releases History
 
+### Release v1.1.2
+
+1. Add SSL debug feature.
+2. Enhance examples.
+
 ### Release v1.1.1
 
 1. Permit sites with "Chain could not be linked to a trust anchor" such as mqtt.thingstream.io.
@@ -2046,6 +2056,7 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 3. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
 4. Add mDNS features.
 5. Use AsyncTCP features from [Phil Bowles' STM32AsyncTCP](https://github.com/philbowles/STM32AsyncTCP).
+6. Add **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**
 
 ### DONE
 

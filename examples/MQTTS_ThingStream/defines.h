@@ -28,11 +28,11 @@
 // If USE_BUILTIN_ETHERNET == false and USE_UIP_ETHERNET == false => 
 // either use W5x00 with EthernetXYZ library
 // or ENC28J60 with EthernetENC library
-#define USE_BUILTIN_ETHERNET    true
-//#define USE_BUILTIN_ETHERNET    false
+//#define USE_BUILTIN_ETHERNET    true
+#define USE_BUILTIN_ETHERNET    false
 
-#define USE_UIP_ETHERNET        true
-//#define USE_UIP_ETHERNET        false
+//#define USE_UIP_ETHERNET        true
+#define USE_UIP_ETHERNET        false
 
 // To override the default CS/SS pin. Don't use unless you know exactly which pin to use
 // You can define here or customize for each board at same place with BOARD_TYPE
