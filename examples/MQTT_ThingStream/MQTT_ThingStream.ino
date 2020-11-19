@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  MQTTS_ThingStream.ino - Dead simple SSL MQTT Client for Ethernet shields
+  MQTT_ThingStream.ino - Dead simple MQTT Client for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
@@ -10,12 +10,11 @@
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
  *****************************************************************************************************************************/
-
 /*
-  Basic MQTT example (with SSL!)
+  Basic MQTT example (without SSL!)
   This sketch demonstrates the basic capabilities of the library.
   It connects to an MQTT server then:
-  - publishes {Hello from MQTTS_ThingStream on NUCLEO_F767ZI} to the topic [STM32_Pub]
+  - publishes {Hello from MQTTClient_SSL on NUCLEO_F767ZI} to the topic [STM32_Pub]
   - subscribes to the topic [STM32_Sub], printing out any messages
     it receives. NB - it assumes the received payloads are strings not binary
   It will reconnect to the server if the connection is lost using a blocking
