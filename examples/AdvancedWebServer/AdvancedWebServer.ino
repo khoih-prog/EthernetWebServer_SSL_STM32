@@ -1,12 +1,13 @@
 /****************************************************************************************************************************
   AdvancedWebServer.h - Dead simple web-server for Ethernet shields
   
-  For STM32 with built-in Ethernet (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 Ethernet
+  For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
-  EthernetWebServer_STM32 is a library for the STM32 run built-in Ethernet WebServer
+  EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
+
+  Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
   
-  Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
-  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
+  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
   
   Copyright (c) 2015, Majenko Technologies
@@ -140,6 +141,7 @@ void setup(void)
 
   Serial.begin(115200);
   Serial.println("\nStart AdvancedWebServer on " + String(BOARD_NAME) + ", using " + String(SHIELD_TYPE));
+  Serial.println(ETHERNET_WEBSERVER_SSL_STM32_VERSION);
 
   ET_LOGWARN3(F("Board :"), BOARD_NAME, F(", setCsPin:"), USE_THIS_SS_PIN);
 

@@ -119,6 +119,7 @@ void setup()
 
   Serial.print("\nStart MQTTClient_SSL_Complex on " + String(BOARD_NAME));
   Serial.println(" with " + String(SHIELD_TYPE));
+  Serial.println(ETHERNET_WEBSERVER_SSL_STM32_VERSION);
 
   // Enable mutual TLS with SSLClient
   //ethClientSSL.setMutualAuthParams(mTLS);

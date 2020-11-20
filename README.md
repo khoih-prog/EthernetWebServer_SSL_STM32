@@ -60,6 +60,8 @@ This [EthernetWebServer_SSL_STM32 library](https://github.com/khoih-prog/Etherne
 
 This [EthernetWebServer_SSL_STM32 library](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32) adds [TLS 1.2](https://www.websecurity.digicert.com/security-topics/what-is-ssl-tls-https) functionality to EthernetClient, using BearSSL as an underlying TLS engine.
 
+This [**EthernetWebServer_SSL_STM32 library**](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32), from v1.2.0, also provides high-level **HTTP and WebSocket Client** with the functions are similar and compatible to those of [**ArduinoHttpClient Library**](https://github.com/arduino-libraries/ArduinoHttpClient)
+
 ---
 
 #### Currently supported Boards
@@ -101,12 +103,14 @@ The [**EthernetWebServer_SSL_STM32 library**](https://github.com/khoih-prog/Ethe
 2. UDP Server and Client
 3. HTTP Server and HTTP/HTTPS Client
 4. HTTPS GET and POST requests, provides argument parsing, handles one client at a time.
+5. **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**. From v1.2.0.
 
 Library is based on and modified from:
 
 1. [Ivan Grokhotkov's ESP8266WebServer](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer)
 2. [Ivan Grokhotkov's ESP32 WebServer](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer)
 3. [OPEnSLab-OSU's SSLClient v1.6.9](https://github.com/OPEnSLab-OSU/SSLClient)
+4. [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 
 The EthernetWebServer class, found in `EthernetWebServer.h` header, is a simple WebServer class, knowing how to handle HTTP requests such as GET and POST and can only support one one client at a time.
 
@@ -116,6 +120,12 @@ Check [`EthernetWebServer Library Issue: Support for STM32F Series`](https://git
 
 ---
 ---
+
+### Major Release v1.2.0
+
+1. Add high-level **HTTP and WebSockets Client** by merging [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient)
+2. Add many more examples for HTTP and WebSockets Client.
+3. Add Version String.
 
 ### Release v1.1.2
 
@@ -137,7 +147,7 @@ Check [`EthernetWebServer Library Issue: Support for STM32F Series`](https://git
 ---
 ---
 
-## Prerequisite
+## Prerequisites
 
  1. [`Arduino IDE 1.8.13+` for Arduino](https://www.arduino.cc/en/Main/Software)
  2. [`Arduino Core for STM32 1.9.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 (Use Arduino Board Manager)
@@ -893,6 +903,8 @@ If for some unfortunate reason you need SSL 3.0 or SSL 2.0, you will need to mod
 
 ### Examples:
 
+#### WebServer, TLS/SSL Client Examples
+
  1. [AdvancedWebServer](examples/AdvancedWebServer)
  2. [HelloServer](examples/HelloServer)
  3. [HelloServer2](examples/HelloServer2)
@@ -913,6 +925,22 @@ If for some unfortunate reason you need SSL 3.0 or SSL 2.0, you will need to mod
 18. [WebServer](examples/WebServer)
 19. [**MQTTS_ThingStream**](examples/MQTTS_ThingStream).
 20. [**MQTT_ThingStream**](examples/MQTT_ThingStream).
+
+#### HTTP and WebSocket Client New Examples
+
+ 1. [BasicAuthGet](examples/HTTPClient/BasicAuthGet)
+ 2. [CustomHeader](examples/HTTPClient/CustomHeader)
+ 3. [DweetGet](examples/HTTPClient/DweetGet)
+ 4. [DweetPost](examples/HTTPClient/DweetPost)
+ 5. [HueBlink](examples/HTTPClient/HueBlink)
+ 6. [node_test_server](examples/HTTPClient/node_test_server)
+ 7. [PostWithHeaders](examples/HTTPClient/PostWithHeaders)
+ 8. [SimpleDelete](examples/HTTPClient/SimpleDelete)
+ 9. [SimpleGet](examples/HTTPClient/SimpleGet)
+10. [SimpleHTTPExample](examples/HTTPClient/SimpleHTTPExample)
+11. [SimplePost](examples/HTTPClient/SimplePost)
+12. [SimplePut](examples/HTTPClient/SimplePut)
+13. [SimpleWebSocket](examples/HTTPClient/SimpleWebSocket)
 
 ---
 ---
@@ -951,6 +979,8 @@ void handleRoot()
   int min = sec / 60;
   int hr = min / 60;
   int day = hr / 24;
+
+  hr = hr % 24;
 
   snprintf(temp, BUFFER_SIZE - 1,
            "<html>\
@@ -1024,6 +1054,7 @@ void setup(void)
 
   Serial.begin(115200);
   Serial.println("\nStart AdvancedWebServer on " + String(BOARD_NAME) + ", using " + String(SHIELD_TYPE));
+  Serial.println(ETHERNET_WEBSERVER_SSL_STM32_VERSION);
 
   ET_LOGWARN3(F("Board :"), BOARD_NAME, F(", setCsPin:"), USE_THIS_SS_PIN);
 
@@ -1270,6 +1301,7 @@ IPAddress ip(192, 168, 2, 232);
 
 ```
 Start AdvancedWebServer on NUCLEO_F767ZI, using LAN8742A Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.2.0
 HTTP EthernetWebServer is @ IP : 192.168.2.117
 EthernetWebServer::handleClient: New Client
 method:  GET
@@ -1391,6 +1423,7 @@ Connection: close
 
 ```
 Start WebClientRepeating on NUCLEO_F767ZI, using ENC28J60 & EthernetENC Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1463,6 +1496,7 @@ Disconnecting from server...
 
 ```
 Start UdpNTPClient on NUCLEO_F767ZI, using W5x00 & Ethernet2 Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1485,6 +1519,7 @@ The UTC time is 22:20:21
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1587,6 +1622,7 @@ Received 3324 bytes in 0.5398 s, rate = 6.16 kbytes/second
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] =========== USE_ETHERNET3 ===========
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1688,6 +1724,7 @@ Received 3405 bytes in 0.4360 s, rate = 7.81 kbytes/second
 
 ```
 Start WebClientMulti_SSL on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1821,6 +1858,7 @@ Received 3998 bytes in 0.0656 s, rate = 60.98 kbytes/second
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1852,6 +1890,7 @@ Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, 
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with W5x00 & Ethernet2 Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1881,6 +1920,7 @@ Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, 
 
 ```
 Start MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1912,6 +1952,7 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream o
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1941,6 +1982,7 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_T
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+EthernetWebServer_SSL_STM32 v1.2.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1970,6 +2012,12 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_T
 ---
 
 ## Releases History
+
+### Major Release v1.2.0
+
+1. Add high-level **HTTP and WebSockets Client** by merging [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient)
+2. Add many more examples for HTTP and WebSockets Client.
+3. Add Version String.
 
 ### Release v1.1.2
 
@@ -2040,6 +2088,7 @@ The library provides these features:
 2. UDP Server and Client
 3. HTTP Server and HTTP/HTTPS Client
 4. HTTPS GET and POST requests, provides argument parsing, handles one client at a time.
+5. **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**. From v1.2.0.
 
 ---
 ---
@@ -2057,7 +2106,7 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 3. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
 4. Add mDNS features.
 5. Use AsyncTCP features from [Phil Bowles' STM32AsyncTCP](https://github.com/philbowles/STM32AsyncTCP).
-6. Add **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**
+
 
 ### DONE
 
@@ -2068,7 +2117,7 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
  5. Add support to all STM32 boards (**STM32F/L/H/G/WB/MP1**) with 32K+ Flash.
  6. Add support to PROGMEM-related commands, such as sendContent_P() and send_P()
  7. Add TLS/SSL Client support to all STM32 boards (**STM32F/L/H/G/WB/MP1**) with 32K+ Flash.
-
+ 8. Add **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**
 ---
 
 ### Contributions and Thanks
@@ -2076,12 +2125,13 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 1. Based on and modified from [Ivan Grokhotkov's ESP8266WebServer](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer)
 2. [OPEnSLab-OSU](https://github.com/PEnSLab-OSU) for [OPEnSLab-OSU's SSLClient](https://github.com/OPEnSLab-OSU/SSLClient)
 3. Thanks to [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) to help debug and test.
-
+4. [Adrian McEwen](https://github.com/amcewen) for [HttpClient Library](https://github.com/amcewen/HttpClient) on which the [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient) and this [EthernetWebServer library](https://github.com/khoih-prog/EthernetWebServer) are relied.
 
 <table>
   <tr>
     <td align="center"><a href="https://github.com/igrr"><img src="https://github.com/igrr.png" width="100px;" alt="igrr"/><br /><sub><b>⭐️ Ivan Grokhotkov</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/OPEnSLab-OSU"><img src="https://github.com/OPEnSLab-OSU.png" width="100px;" alt="OPEnSLab-OSU"/><br /><sub><b>⭐️ OPEnSLab-OSU</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/amcewen"><img src="https://github.com/amcewen.png" width="100px;" alt="amcewen"/><br /><sub><b>⭐️ Adrian McEwen</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/tcpipchip"><img src="https://github.com/tcpipchip.png" width="100px;" alt="tcpipchip"/><br /><sub><b>Miguel Wisintainer</b></sub></a><br /></td>
   </tr> 
 </table>
