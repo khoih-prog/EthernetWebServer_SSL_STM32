@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  RequestHandler.h - Dead simple web-server.
+  Ethernet_URLEncoder.h - Dead simple HTTP WebClient.
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
@@ -19,46 +19,29 @@
   1.1.2   K Hoang      19/11/2020 Add SSL debug feature. Enhance examples.
   1.2.0   K Hoang      20/11/2020 Add basic HTTP and WebSockets Client by merging ArduinoHttpClient
  *****************************************************************************************************************************/
+ 
+// Library to simplify HTTP fetching on Arduino
+// (c) Copyright Arduino. 2019
+// Released under Apache License, version 2.0
 
-#ifndef RequestHandler_STM32_h
-#define RequestHandler_STM32_h
+#pragma once
 
-class RequestHandler
+#include <Arduino.h>
+
+#include "detail/Debug_STM32.h"
+
+
+class EthernetURLEncoderClass
 {
   public:
+    EthernetURLEncoderClass();
+    virtual ~EthernetURLEncoderClass();
 
-    virtual ~RequestHandler() { }
-
-    virtual bool canHandle(HTTPMethod method, String uri)
-    {
-      return false;
-    }
-
-    virtual bool canUpload(String uri)
-    {
-      return false;
-    }
-
-    virtual bool handle(EthernetWebServer& server, HTTPMethod requestMethod, String requestUri)
-    {
-      return false;
-    }
-
-    virtual void upload(EthernetWebServer& server, String requestUri, HTTPUpload& upload) {}
-
-    RequestHandler* next()
-    {
-      return _next;
-    }
-
-    void next(RequestHandler* r)
-    {
-      _next = r;
-    }
+    static String encode(const char* str);
+    static String encode(const String& str);
 
   private:
-
-    RequestHandler* _next = nullptr;
+    static String encode(const char* str, int length);
 };
 
-#endif //RequestHandler_STM32_h
+extern EthernetURLEncoderClass EthernetURLEncoder;

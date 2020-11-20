@@ -1,5 +1,6 @@
 /****************************************************************************************************************************
-  RequestHandler.h - Dead simple web-server.
+  base64.h - c source to a base64 encoding algorithm implementation
+
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
@@ -19,46 +20,9 @@
   1.1.2   K Hoang      19/11/2020 Add SSL debug feature. Enhance examples.
   1.2.0   K Hoang      20/11/2020 Add basic HTTP and WebSockets Client by merging ArduinoHttpClient
  *****************************************************************************************************************************/
+ 
+#pragma once
 
-#ifndef RequestHandler_STM32_h
-#define RequestHandler_STM32_h
+int base64_encode(const unsigned char* aInput, int aInputLen, unsigned char* aOutput, int aOutputLen);
 
-class RequestHandler
-{
-  public:
 
-    virtual ~RequestHandler() { }
-
-    virtual bool canHandle(HTTPMethod method, String uri)
-    {
-      return false;
-    }
-
-    virtual bool canUpload(String uri)
-    {
-      return false;
-    }
-
-    virtual bool handle(EthernetWebServer& server, HTTPMethod requestMethod, String requestUri)
-    {
-      return false;
-    }
-
-    virtual void upload(EthernetWebServer& server, String requestUri, HTTPUpload& upload) {}
-
-    RequestHandler* next()
-    {
-      return _next;
-    }
-
-    void next(RequestHandler* r)
-    {
-      _next = r;
-    }
-
-  private:
-
-    RequestHandler* _next = nullptr;
-};
-
-#endif //RequestHandler_STM32_h

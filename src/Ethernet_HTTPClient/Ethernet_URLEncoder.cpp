@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  RequestHandler.h - Dead simple web-server.
+  Ethernet_URLEncoder.cpp - Dead simple HTTP WebClient.
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
@@ -20,45 +20,63 @@
   1.2.0   K Hoang      20/11/2020 Add basic HTTP and WebSockets Client by merging ArduinoHttpClient
  *****************************************************************************************************************************/
 
-#ifndef RequestHandler_STM32_h
-#define RequestHandler_STM32_h
+// Library to simplify HTTP fetching on Arduino
+// (c) Copyright Arduino. 2019
+// Released under Apache License, version 2.0
 
-class RequestHandler
+#define _ETHERNET_WEBSERVER_LOGLEVEL_     0
+
+#include "detail/Debug_STM32.h"
+#include "Ethernet_HTTPClient/Ethernet_URLEncoder.h"
+
+EthernetURLEncoderClass::EthernetURLEncoderClass()
 {
-  public:
+}
 
-    virtual ~RequestHandler() { }
+EthernetURLEncoderClass::~EthernetURLEncoderClass()
+{
+}
 
-    virtual bool canHandle(HTTPMethod method, String uri)
+String EthernetURLEncoderClass::encode(const char* str)
+{
+  return encode(str, strlen(str));
+}
+
+String EthernetURLEncoderClass::encode(const String& str)
+{
+  return encode(str.c_str(), str.length());
+}
+
+String EthernetURLEncoderClass::encode(const char* str, int length)
+{
+  String encoded;
+
+  encoded.reserve(length);
+
+  for (int i = 0; i < length; i++) 
+  {
+    char c = str[i];
+
+    const char HEX_DIGIT_MAPPER[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+    if (isAlphaNumeric(c) || (c == '-') || (c == '.') || (c == '_') || (c == '~')) 
     {
-      return false;
-    }
-
-    virtual bool canUpload(String uri)
+      encoded += c;
+    } 
+    else 
     {
-      return false;
+      char s[4];
+
+      s[0] = '%';
+      s[1] = HEX_DIGIT_MAPPER[(c >> 4) & 0xf];
+      s[2] = HEX_DIGIT_MAPPER[(c & 0x0f)];
+      s[3] = 0;
+
+      encoded += s;
     }
+  }
 
-    virtual bool handle(EthernetWebServer& server, HTTPMethod requestMethod, String requestUri)
-    {
-      return false;
-    }
+  return encoded;
+}
 
-    virtual void upload(EthernetWebServer& server, String requestUri, HTTPUpload& upload) {}
-
-    RequestHandler* next()
-    {
-      return _next;
-    }
-
-    void next(RequestHandler* r)
-    {
-      _next = r;
-    }
-
-  private:
-
-    RequestHandler* _next = nullptr;
-};
-
-#endif //RequestHandler_STM32_h
+EthernetURLEncoderClass EthernetURLEncoder;
