@@ -9,6 +9,137 @@
 ---
 ---
 
+## Table of Contents
+
+* [Important Note for STM32F boards using built-in LAN8742A Ethernet](#important-note-for-stm32f-boards-using-built-in-lan8742a-ethernet)
+  * [Currently Supported Boards by AsyncWebServer_STM32](#currently-supported-boards-by-asyncwebserver_stm32)
+* [Why do we need the new Async AsyncWebServer_STM32 library](#why-do-we-need-the-new-async-asyncwebserver_stm32-library)
+* [Why do we need this EthernetWebServer_SSL_STM32 library](#why-do-we-need-this-ethernetwebserver_ssl_stm32-library)
+  * [Features](#features)
+  * [Currently supported Boards](#currently-supported-boards)
+  * [Currently supported Ethernet shields/modules](#currently-supported-ethernet-shieldsmodules)
+  * [Not supported boards](#not-supported-boards)
+* [Changelog](#changelog)
+  * [Releases v1.2.1](#releases-v121)
+  * [Major Releases v1.2.0](#major-releases-v120)
+  * [Releases v1.1.2](#releases-v112)
+  * [Releases v1.1.1](#releases-v111)
+  * [Releases v1.1.0](#releases-v110)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+  * [Use Arduino Library Manager](#use-arduino-library-manager)
+  * [Manual Install](#manual-install)
+  * [VS Code & PlatformIO](#vs-code--platformio)
+* [Libraries' Patches](#libraries-patches)
+  * [1. For application requiring 2K+ HTML page](#1-for-application-requiring-2k-html-page)
+  * [2. For Ethernet library](#2-for-ethernet-library)
+  * [3. For EthernetLarge library](#3-for-ethernetlarge-library)
+  * [4. For Etherne2 library](#4-for-ethernet2-library)
+  * [5. For Ethernet3 library](#5-for-ethernet3-library)
+  * [6. For UIPEthernet library](#6-for-uipethernet-library)
+  * [7. Optional UIPthernet patch](#7-optional-uipthernet-patch) 
+* [Configuration Notes](#configuration-notes)
+  * [1. How to select which built-in Ethernet or shield to use](#1-how-to-select-which-built-in-ethernet-or-shield-to-use)
+    * [Select **one and only one** Ethernet library to use as follows:](#select-one-and-only-one-ethernet-library-to-use-as-follows)
+    * [To use built-in LAN8742A](#to-use-built-in-lan8742a)
+    * [To use W5x00 Ethernet, for example using EthernetLarge library](#to-use-w5x00-ethernet-for-example-using-ethernetlarge-library)
+    * [To use ENC28J60 Ethernet, using EthernetENC library (**NEW and Better**)](#to-use-enc28j60-ethernet-using-ethernetenc-library-new-and-better)
+    * [To use ENC28J60 Ethernet, using UIPEthernet library](#to-use-enc28j60-ethernet-using-uipethernet-library)
+  * [Important](#important)
+  * [2. How to connect or select another CS/SS pin to use](#2-how-to-connect-or-select-another-csss-pin-to-use)
+  * [3. How to increase W5x00 TX/RX buffer](#3-how-to-increase-w5x00-txrx-buffer)
+  * [4. How to adjust sendContent_P() and send_P() buffer size](#4-how-to-adjust-sendcontent_p-and-send_p-buffer-size)
+* [WebServer and non TLS/SSL WebClient Usage](#webserver-and-non-tlsssl-webclient-usage)
+  * [Init the CS/SS pin if use EthernetWrapper](#init-the-csss-pin-if-use-ethernetwrapper) 
+  * [Class Constructor](#class-constructor)
+  * [Basic Operation](#basic-operations)
+  * [Advanced Options](#advanced-options)
+  * [Other Function Calls](#other-function-calls)
+* [TLS/SSL WebClient Usage](#tlsssl-webclient-usage)
+  * [Overview](#overview) 
+    * [1. Board and Network Peripheral Requirements](#1-board-and-network-peripheral-requirements)
+    * [2. How to use Trust Anchors TA](#2-how-to-use-trust-anchors-ta)
+    * [3. Note](#3-note)
+* [How It Works](#how-it-works)
+* [Other Features](#other-features)
+  * [Logging](#logging) 
+  * [Errors](#errors)
+  * [Write Buffering](#write-buffering)
+  * [Session Caching](#session-caching)
+  * [mTLS](#mtls)
+* [Implementation Notes](#implementation-notes)
+  * [Seeding Random Data](#seeding-random-data) 
+  * [Certificate Verification](#certificate-verification)
+  * [Resources](#resources)
+  * [Read Buffer Overflow](#read-buffer-overflow)
+  * [Cipher Support](#cipher-support)
+  * [Known Issues](#known-issues) 
+* [Examples](#examples)
+  * [WebServer, TLS/SSL Client Examples](#webserver-tlsssl-client-examples)
+    * [ 1. AdvancedWebServer](examples/AdvancedWebServer)
+    * [ 2. HelloServer](examples/HelloServer)
+    * [ 3. HelloServer2](examples/HelloServer2)
+    * [ 4. HttpBasicAuth](examples/HttpBasicAuth)
+    * [ 5. MQTTClient_Auth](examples/MQTTClient_Auth)
+    * [ 6. MQTTClient_Basic](examples/MQTTClient_Basic)
+    * [ 7. MQTTClient_SSL](examples/MQTTClient_SSL)
+    * [ 8. MQTTClient_SSL_Auth](examples/MQTTClient_SSL_Auth)
+    * [ 9. MQTTClient_SSL_Complex](examples/MQTTClient_SSL_Complex)
+    * [10. PostServer](examples/PostServer)
+    * [11. SimpleAuthentication](examples/SimpleAuthentication)
+    * [12. UdpNTPClient](examples/UdpNTPClient)
+    * [13. UdpSendReceive](examples/UdpSendReceive)
+    * [14. WebClient](examples/WebClient)
+    * [15. WebClientMulti_SSL](examples/WebClientMulti_SSL)
+    * [16. WebClientRepeating](examples/WebClientRepeating)
+    * [17. WebClient_SSL](examples/WebClient_SSL)
+    * [18. WebServer](examples/WebServer)
+    * [19. **MQTTS_ThingStream**](examples/MQTTS_ThingStream).
+    * [20. **MQTT_ThingStream**](examples/MQTT_ThingStream).
+  * [HTTP and WebSocket Client New Examples](#http-and-websocket-client-new-examples)
+    * [ 1. BasicAuthGet](examples/HTTPClient/BasicAuthGet)
+    * [ 2. CustomHeader](examples/HTTPClient/CustomHeader)
+    * [ 3. DweetGet](examples/HTTPClient/DweetGet)
+    * [ 4. DweetPost](examples/HTTPClient/DweetPost)
+    * [ 5. HueBlink](examples/HTTPClient/HueBlink)
+    * [ 6. node_test_server](examples/HTTPClient/node_test_server)
+    * [ 7. PostWithHeaders](examples/HTTPClient/PostWithHeaders)
+    * [ 8. SimpleDelete](examples/HTTPClient/SimpleDelete)
+    * [ 9. SimpleGet](examples/HTTPClient/SimpleGet)
+    * [10. SimpleHTTPExample](examples/HTTPClient/SimpleHTTPExample)
+    * [11. SimplePost](examples/HTTPClient/SimplePost)
+    * [12. SimplePut](examples/HTTPClient/SimplePut)
+    * [13. SimpleWebSocket](examples/HTTPClient/SimpleWebSocket)
+* [Example AdvancedWebServer](#example-advancedwebserver)
+  * [1. File AdvancedWebServer.ino](#1-file-advancedwebserverino)
+  * [2. File defines.h](#2-file-definesh) 
+* [Debug Terminal Output Samples](#debug-termimal-output-samples)
+  * [1. AdvancedWebServer on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#1-advancedwebserver-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
+  * [2. WebClientRepeating on NUCLEO_F767ZI using ENC28J60 and new EthernetENC Library](#2-webclientrepeating-on-nucleo_f767zi-using-enc28j60-and-new-ethernetenc-library)
+  * [3. UdpNTPClient on NUCLEO_F767ZI using W5500 and Ethernet2 Library](#3-udpntpclient-on-nucleo_f767zi-using-w5500-and-ethernet2-library)
+  * [4. WebClient_SSL on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#4-webclient_ssl-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
+  * [5. WebClient_SSL on NUCLEO_F767ZI using W5x00 and Ethernet3 Library](#5-webclient_ssl-on-nucleo_f767zi-using-w5x00-and-ethernet3-library)
+  * [6. WebClientMulti_SSL on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library](#6-webclientmulti_ssl-on-nucleo_f767zi-using-enc28j60-and-ethernetenc-library)
+  * [7. MQTTClient_SSL_Complex on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#7-mqttclient_ssl_complex-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
+  * [8. MQTTClient_SSL_Complex on NUCLEO_F767ZI using W5x00 and Ethernet2 Library](#8-mqttclient_ssl_complex-on-nucleo_f767zi-using-w5x00-and-ethernet2-library)
+  * [9. MQTTS_ThingStream on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#9-mqtts_thingstream-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
+  * [10. MQTTS_ThingStream on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library](#10-mqtts_thingstream-on-nucleo_f767zi-using-enc28j60-and-ethernetenc-library)
+  * [11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet3 Library](#11-mqtts_thingstream-on-nucleo_f767zi-using-w5x00-and-ethernet3-library)
+* [Debug](#debug)
+* [Troubleshooting](#troubleshooting)
+* [Releases](#releases)
+* [Issues](#issues)
+* [TO DO](#to-do)
+* [DONE](#done)
+* [Contributions and Thanks](#contributions-and-thanks)
+* [Contributing](#contributing)
+* [License](#license)
+* [Copyright](#copyright)
+
+
+---
+---
+
 ### Important Note for STM32F boards using built-in LAN8742A Ethernet
 
 This [**EthernetWebServer_SSL_STM32 Library**](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32), by design, is working synchronously. The Client requests must be handled by continuously checking in loop() using :
@@ -36,7 +167,7 @@ void loop(void)
 
 ---
 
-#### Why do we need the new Async [AsyncWebServer_STM32 library](https://github.com/khoih-prog/AsyncWebServer_STM32)
+### Why do we need the new Async [AsyncWebServer_STM32 library](https://github.com/khoih-prog/AsyncWebServer_STM32)
 
 - Using asynchronous network means that you can handle **more than one connection at the same time**
 - **You are called once the request is ready and parsed**
@@ -56,11 +187,34 @@ void loop(void)
 
 ### Why do we need this [EthernetWebServer_SSL_STM32 library](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32)
 
+#### Features
+
 This [EthernetWebServer_SSL_STM32 library](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32) is a simple yet complete TLS/SSL WebClient and non-TLS/SSL WebServer library for **STM32F/L/H/G/WB/MP1** boards using Ethernet shields. The functions are similar and compatible to those of [`ESP32 WebServer`](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer) and [`ESP8266WebServer`](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer) libraries to make life much easier to port sketches from ESP8266/ESP32.
 
 This [EthernetWebServer_SSL_STM32 library](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32) adds [TLS 1.2](https://www.websecurity.digicert.com/security-topics/what-is-ssl-tls-https) functionality to EthernetClient, using BearSSL as an underlying TLS engine.
 
 This [**EthernetWebServer_SSL_STM32 library**](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32), from v1.2.0, also provides high-level **HTTP and WebSocket Client** with the functions are similar and compatible to those of [**ArduinoHttpClient Library**](https://github.com/arduino-libraries/ArduinoHttpClient)
+
+The [**EthernetWebServer_SSL_STM32 library**](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32) supports:
+
+1. TCP Server and Client
+2. UDP Server and Client
+3. HTTP Server and HTTP/HTTPS Client
+4. HTTPS GET and POST requests, provides argument parsing, handles one client at a time.
+5. **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**. From v1.2.0.
+
+Library is based on and modified from:
+
+1. [Ivan Grokhotkov's ESP8266WebServer](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer)
+2. [Ivan Grokhotkov's ESP32 WebServer](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer)
+3. [OPEnSLab-OSU's SSLClient v1.6.9](https://github.com/OPEnSLab-OSU/SSLClient)
+4. [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient)
+
+The EthernetWebServer class, found in `EthernetWebServer.h` header, is a simple WebServer class, knowing how to handle HTTP requests such as GET and POST and can only support one one client at a time.
+
+The EthernetSSLClient class, found in `SSLClient.h` header, is a simple WebClient class, knowing how to handle HTTP/HTTPS requests such as GET and POST and can only support one client at a time.
+
+Check [`EthernetWebServer Library Issue: Support for STM32F Series`](https://github.com/khoih-prog/EthernetWebServer/issues/1) for reason to create this separate library from [`EthernetWebServer_SSL library`](https://github.com/khoih-prog/EthernetWebServer_SSL)
 
 ---
 
@@ -89,55 +243,51 @@ This [**EthernetWebServer_SSL_STM32 library**](https://github.com/khoih-prog/Eth
 - Generic Flight Controllers
 - Midatronics boards
 
-#### Currently supported Ethernet shields/modules:
+#### Currently supported Ethernet shields/modules
 
 1. W5x00 using [`Ethernet`](https://www.arduino.cc/en/Reference/Ethernet), [`EthernetLarge`](https://github.com/OPEnSLab-OSU/EthernetLarge), [`Ethernet2`](https://github.com/adafruit/Ethernet2) or [`Ethernet3`](https://github.com/sstaub/Ethernet3) library
 
 2. ENC28J60 using new [`EthernetENC`](https://github.com/jandrassy/EthernetENC) or [`UIPEthernet`](https://github.com/UIPEthernet/UIPEthernet) library
 
----
+#### Not supported boards
 
-The [**EthernetWebServer_SSL_STM32 library**](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32) supports:
+These boards are not supported:
 
-1. TCP Server and Client
-2. UDP Server and Client
-3. HTTP Server and HTTP/HTTPS Client
-4. HTTPS GET and POST requests, provides argument parsing, handles one client at a time.
-5. **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**. From v1.2.0.
+- Some Nucleo-32 (small Flash/memory)
+- Eval (no Serial, just need to redefine in sketch, library and UIPEthernet)
+- Generic STM32F0 (small Flash/memory)
+- Generic STM32F1 (with 64-K Flash): C6
+- Generic STM32F3 : no HardwareSPI.h
+- Electronics Speed Controllers (small Flash/memory)
 
-Library is based on and modified from:
-
-1. [Ivan Grokhotkov's ESP8266WebServer](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer)
-2. [Ivan Grokhotkov's ESP32 WebServer](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer)
-3. [OPEnSLab-OSU's SSLClient v1.6.9](https://github.com/OPEnSLab-OSU/SSLClient)
-4. [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient)
-
-The EthernetWebServer class, found in `EthernetWebServer.h` header, is a simple WebServer class, knowing how to handle HTTP requests such as GET and POST and can only support one one client at a time.
-
-The EthernetSSLClient class, found in `SSLClient.h` header, is a simple WebClient class, knowing how to handle HTTP/HTTPS requests such as GET and POST and can only support one client at a time.
-
-Check [`EthernetWebServer Library Issue: Support for STM32F Series`](https://github.com/khoih-prog/EthernetWebServer/issues/1) for reason to create this separate library from [`EthernetWebServer_SSL library`](https://github.com/khoih-prog/EthernetWebServer_SSL)
 
 ---
 ---
 
-### Major Release v1.2.0
+## Changelog
+
+### Releases v1.2.1
+
+1. Clean-up all compiler warnings possible.
+2. Add Table of Contents
+
+### Major Releases v1.2.0
 
 1. Add high-level **HTTP and WebSockets Client** by merging [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 2. Add many more examples for HTTP and WebSockets Client.
 3. Add Version String.
 
-### Release v1.1.2
+### Releases v1.1.2
 
 1. Add SSL debug feature.
 2. Enhance examples.
 
-### Release v1.1.1
+### Releases v1.1.1
 
 1. Permit sites with "Chain could not be linked to a trust anchor" such as mqtt.thingstream.io.
 2. Add example MQTTS_ThingStream to demonstrate new feature
 
-### Release v1.1.0
+### Releases v1.1.0
 
 1. Initial coding for **STM32F/L/H/G/WB/MP1 boards (with 32+K Flash) running LAN8742A, W5x00 or ENC28J60 shields** using SSL.
 2. Supporting Built-in LAN8742A using STM32Ethernet library.
@@ -191,54 +341,59 @@ You can also use this link [![arduino-library-badge](https://www.ardu-badge.com/
 
 ### Libraries' Patches
 
-1. If your application requires 2K+ HTML page, the current [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) must be modified if you are using W5200/W5500 Ethernet shields. W5100 is not supported for 2K+ buffer. If you use boards requiring different CS/SS pin for W5x00 Ethernet shield, for example ESP32, ESP8266, nRF52, etc., you also have to modify the following libraries to be able to specify the CS/SS pin correctly.
+#### 1. For application requiring 2K+ HTML page
 
-2. To fix [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet), just copy these following files into the [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) directory to overwrite the old files:
+If your application requires 2K+ HTML page, the current [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) must be modified if you are using W5200/W5500 Ethernet shields. W5100 is not supported for 2K+ buffer. If you use boards requiring different CS/SS pin for W5x00 Ethernet shield, for example ESP32, ESP8266, nRF52, etc., you also have to modify the following libraries to be able to specify the CS/SS pin correctly.
+
+#### 2. For Ethernet library
+
+To fix [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet), just copy these following files into the [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) directory to overwrite the old files:
 - [Ethernet.h](LibraryPatches/Ethernet/src/Ethernet.h)
 - [Ethernet.cpp](LibraryPatches/Ethernet/src/Ethernet.cpp)
 - [EthernetServer.cpp](LibraryPatches/Ethernet/src/EthernetServer.cpp)
 - [w5100.h](LibraryPatches/Ethernet/src/utility/w5100.h)
 - [w5100.cpp](LibraryPatches/Ethernet/src/utility/w5100.cpp)
 
-3. To fix [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge), just copy these following files into the [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) directory to overwrite the old files:
+#### 3. For EthernetLarge library
+
+To fix [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge), just copy these following files into the [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) directory to overwrite the old files:
 - [EthernetLarge.h](LibraryPatches/EthernetLarge/src/EthernetLarge.h)
 - [EthernetLarge.cpp](LibraryPatches/EthernetLarge/src/EthernetLarge.cpp)
 - [EthernetServer.cpp](LibraryPatches/EthernetLarge/src/EthernetServer.cpp)
 - [w5100.h](LibraryPatches/EthernetLarge/src/utility/w5100.h)
 - [w5100.cpp](LibraryPatches/EthernetLarge/src/utility/w5100.cpp)
 
-4. To fix [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2), just copy these following files into the [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) directory to overwrite the old files:
+
+#### 4. For Ethernet2 library
+
+To fix [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2), just copy these following files into the [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) directory to overwrite the old files:
 
 - [Ethernet2.h](LibraryPatches/Ethernet2/src/Ethernet2.h)
 - [Ethernet2.cpp](LibraryPatches/Ethernet2/src/Ethernet2.cpp)
 
-To add UDP Multicast support, necessary for this [**UPnP_Generic library**](https://github.com/khoih-prog/UPnP_Generic):
+To add UDP Multicast support, necessary for the [**UPnP_Generic library**](https://github.com/khoih-prog/UPnP_Generic):
 
 - [EthernetUdp2.h](LibraryPatches/Ethernet2/src/EthernetUdp2.h)
 - [EthernetUdp2.cpp](LibraryPatches/Ethernet2/src/EthernetUdp2.cpp)
 
-5. To fix [`Ethernet3 library`](https://github.com/sstaub/Ethernet3), just copy these following files into the [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) directory to overwrite the old files:
+#### 5. For Ethernet3 library
+
+To fix [`Ethernet3 library`](https://github.com/sstaub/Ethernet3), just copy these following files into the [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) directory to overwrite the old files:
 - [Ethernet3.h](LibraryPatches/Ethernet3/src/Ethernet3.h)
 - [Ethernet3.cpp](LibraryPatches/Ethernet3/src/Ethernet3.cpp)
 
-6. **To be able to compile and run on nRF52 boards with ENC28J60 using UIPEthernet library**, you have to copy these following files into the UIPEthernet `utility` directory to overwrite the old files:
+#### 6. For UIPEthernet library
 
-- For [UIPEthernet v2.0.8](https://github.com/UIPEthernet/UIPEthernet)
+***To be able to compile and run on nRF52 boards with ENC28J60 using UIPEthernet library***, you have to copy these following files into the UIPEthernet `utility` directory to overwrite the old files:
 
-  - [UIPEthernet.h](LibraryPatches/UIPEthernet/UIPEthernet.h)
-  - [UIPEthernet.cpp](LibraryPatches/UIPEthernet/UIPEthernet.cpp)
-  - [Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
-  - [Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
+- [UIPEthernet.h](LibraryPatches/UIPEthernet/UIPEthernet.h)
+- [UIPEthernet.cpp](LibraryPatches/UIPEthernet/UIPEthernet.cpp)
+- [Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
+- [Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
 
-- For [UIPEthernet v2.0.9](https://github.com/UIPEthernet/UIPEthernet)
+#### 7. Optional UIPthernet patch
 
-  - [UIPEthernet.h](LibraryPatches/UIPEthernet-2.0.9/UIPEthernet.h)
-  - [UIPEthernet.cpp](LibraryPatches/UIPEthernet-2.0.9/UIPEthernet.cpp)
-  - [Enc28J60Network.h](LibraryPatches/UIPEthernet-2.0.9/utility/Enc28J60Network.h)
-  - [Enc28J60Network.cpp](LibraryPatches/UIPEthernet-2.0.9/utility/Enc28J60Network.cpp)
-
-7. Check if you need to install the UIPthernet patch [new STM32 core F3/F4 compatibility](https://github.com/UIPEthernet/UIPEthernet/commit/c6d6519a260166b722b9cee5dd1f0fb2682e6782) to avoid errors `#include HardwareSPI.h` on some STM32 boards (Nucleo-32 F303K8, etc.)
-
+Check if you need to install the UIPthernet patch [new STM32 core F3/F4 compatibility](https://github.com/UIPEthernet/UIPEthernet/commit/c6d6519a260166b722b9cee5dd1f0fb2682e6782) to avoid errors `#include HardwareSPI.h` on some STM32 boards (Nucleo-32 F303K8, etc.)
 ---
 ---
 
@@ -268,7 +423,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 #endif
 ```
 
-#### To use built-in LAN8742A :
+#### To use built-in LAN8742A
 
 ```
 #define USE_BUILTIN_ETHERNET    true
@@ -322,7 +477,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 #endif
 ```
 
-#### To use ENC28J60 Ethernet, using UIPEthernet library:
+#### To use ENC28J60 Ethernet, using UIPEthernet library
 
 ```cpp
 #define USE_BUILTIN_ETHERNET    false
@@ -1293,7 +1448,9 @@ IPAddress ip(192, 168, 2, 232);
 
 ### Debug Termimal Output Samples
 
-1. Following is debug terminal output and screen shot when running example [AdvancedWebServer](examples/AdvancedWebServer) on STM32 Nucleo-144 NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library
+#### 1. AdvancedWebServer on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library
+
+Following is debug terminal output and screen shot when running example [AdvancedWebServer](examples/AdvancedWebServer) on STM32F7 Nucleo-144 NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library
 
 <p align="center">
     <img src="https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/main/pics/AdvancedWebServer.png">
@@ -1301,7 +1458,7 @@ IPAddress ip(192, 168, 2, 232);
 
 ```
 Start AdvancedWebServer on NUCLEO_F767ZI, using LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 HTTP EthernetWebServer is @ IP : 192.168.2.117
 EthernetWebServer::handleClient: New Client
 method:  GET
@@ -1419,11 +1576,13 @@ Connection: close
 
 ---
 
-2. The following is debug terminal output when running example [WebClientRepeating](examples/WebClientRepeating) on STM32 Nucleo-144 NUCLEO_F767ZI using **ENC28J60 and new EthernetENC Library**
+#### 2. WebClientRepeating on NUCLEO_F767ZI using ENC28J60 and new EthernetENC Library
+
+The following is debug terminal output when running example [WebClientRepeating](examples/WebClientRepeating) on STM32F7 Nucleo-144 NUCLEO_F767ZI using **ENC28J60 and new EthernetENC Library**
 
 ```
 Start WebClientRepeating on NUCLEO_F767ZI, using ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1492,11 +1651,13 @@ Disconnecting from server...
 
 ---
 
-3. The following is debug terminal output when running example [UdpNTPClient](examples/UdpNTPClient) on STM32 Nucleo-144 NUCLEO_F767ZI using **W5500 and Ethernet2 Library**
+#### 3. UdpNTPClient on NUCLEO_F767ZI using W5500 and Ethernet2 Library
+
+3. The following is debug terminal output when running example [UdpNTPClient](examples/UdpNTPClient) on STM32F7 Nucleo-144 NUCLEO_F767ZI using **W5500 and Ethernet2 Library**
 
 ```
 Start UdpNTPClient on NUCLEO_F767ZI, using W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1514,12 +1675,13 @@ The UTC time is 22:20:21
 
 ---
 
+#### 4. WebClient_SSL on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library
 
 4. The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library** running [WebClient_SSL example](examples/WebClient_SSL)
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1618,11 +1780,13 @@ Received 3324 bytes in 0.5398 s, rate = 6.16 kbytes/second
 
 ---
 
-5. The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running [WebClient_SSL example](examples/WebClient_SSL)
+#### 5. WebClient_SSL on NUCLEO_F767ZI using W5x00 and Ethernet3 Library
+
+The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running [WebClient_SSL example](examples/WebClient_SSL)
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] =========== USE_ETHERNET3 ===========
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1720,11 +1884,13 @@ Received 3405 bytes in 0.4360 s, rate = 7.81 kbytes/second
 ```
 ---
 
-6. The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** running [WebClientMulti_SSL example](examples/WebClientMulti_SSL)
+#### 6. WebClientMulti_SSL on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library
+
+The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** running [WebClientMulti_SSL example](examples/WebClientMulti_SSL)
 
 ```
 Start WebClientMulti_SSL on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1854,11 +2020,13 @@ Received 3998 bytes in 0.0656 s, rate = 60.98 kbytes/second
 
 ---
 
-7. The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library** running [MQTTClient_SSL_Complex example](examples/MQTTClient_SSL_Complex)
+#### 7. MQTTClient_SSL_Complex on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library
+
+The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library** running [MQTTClient_SSL_Complex example](examples/MQTTClient_SSL_Complex)
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1886,11 +2054,13 @@ Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, 
 
 ---
 
-8. The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet2 Library** running [MQTTClient_SSL_Complex example](examples/MQTTClient_SSL_Complex)
+#### 8. MQTTClient_SSL_Complex on NUCLEO_F767ZI using W5x00 and Ethernet2 Library
+
+The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet2 Library** running [MQTTClient_SSL_Complex example](examples/MQTTClient_SSL_Complex)
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1916,11 +2086,13 @@ Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, 
 
 ---
 
-9. The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
+#### 9. MQTTS_ThingStream on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library
+
+The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
 
 ```
 Start MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1948,11 +2120,13 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream o
 
 ---
 
-10. The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
+#### 10. MQTTS_ThingStream on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library
+
+The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1978,11 +2152,13 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_T
 
 ---
 
-11. The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
+#### 11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet3 Library
+
+The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.2.0
+EthernetWebServer_SSL_STM32 v1.2.1
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2007,34 +2183,60 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_T
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
 MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
 ```
+---
+---
+
+### Debug
+
+Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, change the _ETHERNET_WEBSERVER_LOGLEVEL_ to 0
+
+```cpp
+// Use this to output debug msgs to Serial
+#define DEBUG_ETHERNET_WEBSERVER_PORT       Serial
+// Use this to disable all output debug msgs
+// Debug Level from 0 to 4
+#define _ETHERNET_WEBSERVER_LOGLEVEL_       0
+```
+
+---
+
+## Troubleshooting
+
+If you get compilation errors, more often than not, you may need to install a newer version of the board's core, applying Libraries' Patches, Packages' Patches or this library latest version.
 
 ---
 ---
 
-## Releases History
+## Releases
 
-### Major Release v1.2.0
+### Releases v1.2.1
+
+1. Clean-up all compiler warnings possible.
+2. Add Table of Contents
+
+### Major Releases v1.2.0
 
 1. Add high-level **HTTP and WebSockets Client** by merging [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 2. Add many more examples for HTTP and WebSockets Client.
 3. Add Version String.
 
-### Release v1.1.2
+### Releases v1.1.2
 
 1. Add SSL debug feature.
 2. Enhance examples.
 
-### Release v1.1.1
+### Releases v1.1.1
 
 1. Permit sites with "Chain could not be linked to a trust anchor" such as mqtt.thingstream.io.
 2. Add example MQTTS_ThingStream to demonstrate new feature
 
-### Release v1.1.0
+### Releases v1.1.0
 
 1. Initial coding for **STM32F/L/H/G/WB/MP1 boards (with 32+K Flash) running LAN8742A, W5x00 or ENC28J60 shields** using SSL.
 2. Supporting Built-in LAN8742A using STM32Ethernet library.
 3. Supporting W5x00 using Ethernet, EthernetLarge, Ethernet2 and Ethernet3 libraries
 4. Supporting ENC28J60 using EthernetENC and UIPEthernet libraries
+
 
 ---
 
