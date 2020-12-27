@@ -13,7 +13,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
        
-  Version: 1.2.0
+  Version: 1.2.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -22,8 +22,13 @@
   1.1.1   K Hoang      18/11/2020 Permit sites with "Chain could not be linked to a trust anchor" such as ThingStream
   1.1.2   K Hoang      19/11/2020 Add SSL debug feature. Enhance examples.
   1.2.0   K Hoang      20/11/2020 Add basic HTTP and WebSockets Client by merging ArduinoHttpClient
+  1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
  *****************************************************************************************************************************/
 
+#pragma once
+
+// Reintroduce to prevent duplication compile error if other lib/core already has LIB64
+// pragma once can't prevent that
 #ifndef BASE64_CDECODE_H
 #define BASE64_CDECODE_H
 
@@ -33,11 +38,13 @@
 extern "C" {
 #endif
 
-typedef enum {
+typedef enum 
+{
   step_a, step_b, step_c, step_d
 } base64_decodestep;
 
-typedef struct {
+typedef struct 
+{
   base64_decodestep step;
   char plainchar;
 } base64_decodestate;

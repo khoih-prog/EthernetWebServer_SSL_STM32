@@ -9,7 +9,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
        
-  Version: 1.2.0
+  Version: 1.2.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -18,7 +18,10 @@
   1.1.1   K Hoang      18/11/2020 Permit sites with "Chain could not be linked to a trust anchor" such as ThingStream
   1.1.2   K Hoang      19/11/2020 Add SSL debug feature. Enhance examples.
   1.2.0   K Hoang      20/11/2020 Add basic HTTP and WebSockets Client by merging ArduinoHttpClient
+  1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
  *****************************************************************************************************************************/
+
+#pragma once
 
 #ifndef RequestHandlerImpl_STM32_h
 #define RequestHandlerImpl_STM32_h
@@ -68,6 +71,8 @@ class FunctionRequestHandler : public RequestHandler
 
     bool handle(EthernetWebServer& server, HTTPMethod requestMethod, String requestUri) override
     {
+      ETW_UNUSED(server);
+      
       if (!canHandle(requestMethod, requestUri))
         return false;
 
@@ -77,6 +82,9 @@ class FunctionRequestHandler : public RequestHandler
 
     void upload(EthernetWebServer& server, String requestUri, HTTPUpload& upload) override
     {
+      ETW_UNUSED(server);
+      ETW_UNUSED(upload);
+      
       if (canUpload(requestUri))
         _ufn();
     }
