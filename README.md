@@ -394,6 +394,8 @@ To fix [`Ethernet3 library`](https://github.com/sstaub/Ethernet3), just copy the
 #### 7. Optional UIPthernet patch
 
 Check if you need to install the UIPthernet patch [new STM32 core F3/F4 compatibility](https://github.com/UIPEthernet/UIPEthernet/commit/c6d6519a260166b722b9cee5dd1f0fb2682e6782) to avoid errors `#include HardwareSPI.h` on some STM32 boards (Nucleo-32 F303K8, etc.)
+
+
 ---
 ---
 
