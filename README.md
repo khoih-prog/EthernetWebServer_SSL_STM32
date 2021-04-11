@@ -142,7 +142,7 @@
   * [10. MQTTS_ThingStream on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library](#10-mqtts_thingstream-on-nucleo_f767zi-using-enc28j60-and-ethernetenc-library)
   * [11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet3 Library](#11-mqtts_thingstream-on-nucleo_f767zi-using-w5x00-and-ethernet3-library)
   * [12. MQTTS_ThingStream_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#12-mqtts_thingstream_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
-  * [13. WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#13-webclient_ssl_lan8720-on-black_f407ve-with-lan8720-ethernet-stm32ethernet-library)
+  * [13. WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#13-webclient_ssl_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
   * [14. MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#14-mqttclient_ssl_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
   * [15. MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#15-mqttclient_ssl_complex_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
 * [Debug](#debug)
@@ -1197,7 +1197,7 @@ Connect as follows. To program, use **STM32CubeProgrammer** or Arduino IDE with
 
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/master/pics/STM32F407VET6.png">
+    <img src="https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/main/pics/STM32F407VET6.png">
 </p>
 
 ---
