@@ -20,6 +20,7 @@
   * [Currently supported Ethernet shields/modules](#currently-supported-ethernet-shieldsmodules)
   * [Not supported boards](#not-supported-boards)
 * [Changelog](#changelog)
+  * [Releases v1.3.0](#releases-v130)
   * [Releases v1.2.1](#releases-v121)
   * [Major Releases v1.2.0](#major-releases-v120)
   * [Releases v1.1.2](#releases-v112)
@@ -30,6 +31,9 @@
   * [Use Arduino Library Manager](#use-arduino-library-manager)
   * [Manual Install](#manual-install)
   * [VS Code & PlatformIO](#vs-code--platformio)
+* [Packages' Patches](#packages-patches)
+  * [1. For STM32 boards to use LAN8720](#1-for-stm32-boards-to-use-lan8720)
+  * [2. For STM32 boards to use Serial1](#2-for-stm32-boards-to-use-serial1)
 * [Libraries' Patches](#libraries-patches)
   * [1. For application requiring 2K+ HTML page](#1-for-application-requiring-2k-html-page)
   * [2. For Ethernet library](#2-for-ethernet-library)
@@ -42,6 +46,7 @@
   * [1. How to select which built-in Ethernet or shield to use](#1-how-to-select-which-built-in-ethernet-or-shield-to-use)
     * [Select **one and only one** Ethernet library to use as follows:](#select-one-and-only-one-ethernet-library-to-use-as-follows)
     * [To use built-in LAN8742A](#to-use-built-in-lan8742a)
+    * [To use LAN8720](#to-use-lan8720)
     * [To use W5x00 Ethernet, for example using EthernetLarge library](#to-use-w5x00-ethernet-for-example-using-ethernetlarge-library)
     * [To use ENC28J60 Ethernet, using EthernetENC library (**NEW and Better**)](#to-use-enc28j60-ethernet-using-ethernetenc-library-new-and-better)
     * [To use ENC28J60 Ethernet, using UIPEthernet library](#to-use-enc28j60-ethernet-using-uipethernet-library)
@@ -73,7 +78,11 @@
   * [Resources](#resources)
   * [Read Buffer Overflow](#read-buffer-overflow)
   * [Cipher Support](#cipher-support)
-  * [Known Issues](#known-issues) 
+  * [Known Issues](#known-issues)
+* [HOWTO use STM32F4 with LAN8720](#howto-use-stm32f4-with-lan8720)
+  * [1. Wiring](#1-wiring)
+  * [2. HOWTO program using STLink V-2 or V-3](#2-howto-program-using-stlink-v-2-or-v-3)
+  * [3. HOWTO use Serial Port for Debugging](#3-howto-use-serial-port-for-debugging)
 * [Examples](#examples)
   * [WebServer, TLS/SSL Client Examples](#webserver-tlsssl-client-examples)
     * [ 1. AdvancedWebServer](examples/AdvancedWebServer)
@@ -110,10 +119,17 @@
     * [11. SimplePost](examples/HTTPClient/SimplePost)
     * [12. SimplePut](examples/HTTPClient/SimplePut)
     * [13. SimpleWebSocket](examples/HTTPClient/SimpleWebSocket)
+  * [LAN8720 Examples](#lan8720-examples)
+    * [ 1. MQTTClient_SSL_LAN8720](examples/STM32_LAN8720/MQTTClient_SSL_LAN8720)
+    * [ 2. MQTTClient_SSL_Auth_LAN8720](examples/STM32_LAN8720/MQTTClient_SSL_Auth_LAN8720)
+    * [ 3. MQTTClient_SSL_Complex_LAN8720](examples/STM32_LAN8720/MQTTClient_SSL_Complex_LAN8720)
+    * [ 4. WebClient_SSL_LAN8720](examples/STM32_LAN8720/WebClient_SSL_LAN8720)
+    * [ 5. WebClientMulti_SSL_LAN8720](examples/STM32_LAN8720/WebClientMulti_SSL_LAN8720)
+    * [ 6. **MQTTS_ThingStream_LAN8720**](examples/STM32_LAN8720/MQTTS_ThingStream_LAN8720)
 * [Example AdvancedWebServer](#example-advancedwebserver)
   * [1. File AdvancedWebServer.ino](#1-file-advancedwebserverino)
   * [2. File defines.h](#2-file-definesh) 
-* [Debug Terminal Output Samples](#debug-termimal-output-samples)
+* [Debug Terminal Output Samples](#debug-terminal-output-samples)
   * [1. AdvancedWebServer on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#1-advancedwebserver-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
   * [2. WebClientRepeating on NUCLEO_F767ZI using ENC28J60 and new EthernetENC Library](#2-webclientrepeating-on-nucleo_f767zi-using-enc28j60-and-new-ethernetenc-library)
   * [3. UdpNTPClient on NUCLEO_F767ZI using W5500 and Ethernet2 Library](#3-udpntpclient-on-nucleo_f767zi-using-w5500-and-ethernet2-library)
@@ -125,6 +141,10 @@
   * [9. MQTTS_ThingStream on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#9-mqtts_thingstream-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
   * [10. MQTTS_ThingStream on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library](#10-mqtts_thingstream-on-nucleo_f767zi-using-enc28j60-and-ethernetenc-library)
   * [11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet3 Library](#11-mqtts_thingstream-on-nucleo_f767zi-using-w5x00-and-ethernet3-library)
+  * [12. MQTTS_ThingStream_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#12-mqtts_thingstream_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
+  * [13. WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#13-webclient_ssl_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
+  * [14. MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#14-mqttclient_ssl_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
+  * [15. MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#15-mqttclient_ssl_complex_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
 * [Releases](#releases)
@@ -243,11 +263,19 @@ Check [`EthernetWebServer Library Issue: Support for STM32F Series`](https://git
 - Generic Flight Controllers
 - Midatronics boards
 
+3. **STM32 boards using Ethernet LAN8720** such as :
+
+  - **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG)**
+  - **Discovery (DISCO_F746NG)**
+  - **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
+
 #### Currently supported Ethernet shields/modules
 
 1. W5x00 using [`Ethernet`](https://www.arduino.cc/en/Reference/Ethernet), [`EthernetLarge`](https://github.com/OPEnSLab-OSU/EthernetLarge), [`Ethernet2`](https://github.com/adafruit/Ethernet2) or [`Ethernet3`](https://github.com/sstaub/Ethernet3) library
 
 2. ENC28J60 using new [`EthernetENC`](https://github.com/jandrassy/EthernetENC) or [`UIPEthernet`](https://github.com/UIPEthernet/UIPEthernet) library
+
+3. LAN8720 using new [`STM32Ethernet`](https://github.com/stm32duino/STM32Ethernet) and [`LwIP`](https://github.com/stm32duino/LwIP) libraries.
 
 #### Not supported boards
 
@@ -260,11 +288,16 @@ These boards are not supported:
 - Generic STM32F3 : no HardwareSPI.h
 - Electronics Speed Controllers (small Flash/memory)
 
-
 ---
 ---
 
 ## Changelog
+
+### Releases v1.3.0
+
+1. Add support to **LAN8720** Ethernet for many **STM32F4** (F407xx, NUCLEO_F429ZI) and **STM32F7** (DISCO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG) boards.
+2. Add LAN8720 examples
+3. Add Packages' Patches for STM32 to use LAN8720 with STM32Ethernet and LwIP libraries
 
 ### Releases v1.2.1
 
@@ -302,7 +335,7 @@ These boards are not supported:
  1. [`Arduino IDE 1.8.13+` for Arduino](https://www.arduino.cc/en/Main/Software)
  2. [`Arduino Core for STM32 v1.9.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
  3.  [`Functional-VLPP library v1.0.2+`](https://github.com/khoih-prog/functional-vlpp) to use server's lambda function. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/Functional-Vlpp.svg?)](https://www.ardu-badge.com/Functional-Vlpp)
- 4. For built-in LAN8742A Ethernet:
+ 4. For built-in LAN8742A or LAN8720 Ethernet:
    - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in LAN8742A Ethernet on (Nucleo-144, Discovery). [![GitHub release](https://img.shields.io/github/release/stm32duino/STM32Ethernet.svg)](https://github.com/stm32duino/STM32Ethernet/releases/latest)
    - [`LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP) for built-in LAN8742A Ethernet on (Nucleo-144, Discovery). [![GitHub release](https://img.shields.io/github/release/stm32duino/LwIP.svg)](https://github.com/stm32duino/LwIP/releases/latest)
  5. For W5x00 Ethernet:
@@ -339,6 +372,47 @@ You can also use this link [![arduino-library-badge](https://www.ardu-badge.com/
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
 
 ---
+---
+
+### Packages' Patches
+
+#### 1. For STM32 boards to use LAN8720
+
+To use LAN8720 on some STM32 boards 
+
+- **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG)**
+- **Discovery (DISCO_F746NG)**
+- **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
+
+you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/1.9.0/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/1.9.0/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/1.9.0/system) to overwrite the old files.
+
+Supposing the STM32 stm32 core version is 1.9.0. These files must be copied into the directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
+- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
+theses files must be copied into the corresponding directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F4xx/stm32f4xx_hal_conf_default.h`
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F7xx/stm32f7xx_hal_conf_default.h
+
+
+#### 2. For STM32 boards to use Serial1
+
+**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/1.9.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/1.9.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
+
+Supposing the STM32 stm32 core version is 1.9.0. These files must be copied into the directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/variants/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
+- `~/.arduino15/packages/STM32/hardware/stm32/1.9.0/variants/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
+theses files must be copied into the corresponding directory:
+
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/NUCLEO_F767ZI/variant.h`
+- `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/NUCLEO_L053R8/variant.h`
+
 ---
 
 ### Libraries' Patches
@@ -430,6 +504,25 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 #### To use built-in LAN8742A
 
 ```
+#define USE_BUILTIN_ETHERNET    true
+#define USE_UIP_ETHERNET        false
+
+#if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
+  // Only one of the following to be true
+  #define USE_ETHERNET          false
+  #define USE_ETHERNET2         false
+  #define USE_ETHERNET3         false
+  #define USE_ETHERNET_LARGE    false
+  #define USE_ETHERNET_ESP8266  false
+  #define USE_ETHERNET_ENC      false
+  #define USE_CUSTOM_ETHERNET   false
+#endif
+```
+
+#### To use LAN8720
+
+```
+#define USING_LAN8720           true
 #define USE_BUILTIN_ETHERNET    true
 #define USE_UIP_ETHERNET        false
 
@@ -781,6 +874,7 @@ Example:
   void serveStatic();
   size_t streamFile();
 ```
+
 ---
 
 ### TLS/SSL WebClient Usage
@@ -1062,6 +1156,66 @@ If for some unfortunate reason you need SSL 3.0 or SSL 2.0, you will need to mod
 ---
 ---
 
+### HOWTO use STM32F4 with LAN8720
+
+#### 1. Wiring
+
+This is the Wiring for STM32F4 (BLACK_F407VE, etc.) using LAN8720
+
+
+|LAN8720 PHY|<--->|STM32F4|
+|:-:|:-:|:-:|
+|TX1|<--->|PB_13|
+|TX_EN|<--->|PB_11|
+|TX0|<--->|PB_12|
+|RX0|<--->|PC_4|
+|RX1|<--->|PC_5|
+|nINT/RETCLK|<--->|PA_1|
+|CRS|<--->|PA_7|
+|MDIO|<--->|PA_2|
+|MDC|<--->|PC_1|
+|GND|<--->|GND|
+|VCC|<--->|+3.3V|
+
+---
+
+#### 2. HOWTO program using STLink V-2 or V-3
+
+Connect as follows. To program, use **STM32CubeProgrammer** or Arduino IDE with 
+
+- **U(S)ART Support: "Enabled (generic Serial)"**
+- **Upload Method : "STM32CubeProgrammer (SWD)"**
+
+
+|STLink|<--->|STM32F4|
+|:-:|:-:|:-:|
+|SWCLK|<--->|SWCLK|
+|SWDIO|<--->|SWDIO|
+|RST|<--->|NRST|
+|GND|<--->|GND|
+|5v|<--->|5V|
+
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/EthernetWebServer_STM32/blob/master/pics/STM32F407VET6.png">
+</p>
+
+---
+
+#### 3. HOWTO use Serial Port for Debugging
+
+Connect FDTI (USB to Serial) as follows:
+
+|FDTI|<--->|STM32F4|
+|:-:|:-:|:-:|
+|RX|<--->|TX=PA_9|
+|TX|<--->|RX=PA_10|
+|GND|<--->|GND|
+
+
+---
+---
+
 ### Examples:
 
 #### WebServer, TLS/SSL Client Examples
@@ -1102,6 +1256,17 @@ If for some unfortunate reason you need SSL 3.0 or SSL 2.0, you will need to mod
 11. [SimplePost](examples/HTTPClient/SimplePost)
 12. [SimplePut](examples/HTTPClient/SimplePut)
 13. [SimpleWebSocket](examples/HTTPClient/SimpleWebSocket)
+
+
+#### LAN8720 Examples
+
+ 1. [MQTTClient_SSL_LAN8720](examples/STM32_LAN8720/MQTTClient_SSL_LAN8720)
+ 2. [MQTTClient_SSL_Auth_LAN8720](examples/STM32_LAN8720/MQTTClient_SSL_Auth_LAN8720)
+ 3. [MQTTClient_SSL_Complex_LAN8720](examples/STM32_LAN8720/MQTTClient_SSL_Complex_LAN8720)
+ 4. [WebClient_SSL_LAN8720](examples/STM32_LAN8720/WebClient_SSL_LAN8720)
+ 5. [WebClientMulti_SSL_LAN8720](examples/STM32_LAN8720/WebClientMulti_SSL_LAN8720)
+ 6. [**MQTTS_ThingStream_LAN8720**](examples/STM32_LAN8720/MQTTS_ThingStream_LAN8720)
+
 
 ---
 ---
@@ -1452,7 +1617,7 @@ IPAddress ip(192, 168, 2, 232);
 ---
 ---
 
-### Debug Termimal Output Samples
+### Debug Terminal Output Samples
 
 #### 1. AdvancedWebServer on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library
 
@@ -1464,7 +1629,7 @@ Following is debug terminal output and screen shot when running example [Advance
 
 ```
 Start AdvancedWebServer on NUCLEO_F767ZI, using LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 HTTP EthernetWebServer is @ IP : 192.168.2.117
 EthernetWebServer::handleClient: New Client
 method:  GET
@@ -1588,7 +1753,7 @@ The following is debug terminal output when running example [WebClientRepeating]
 
 ```
 Start WebClientRepeating on NUCLEO_F767ZI, using ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1663,7 +1828,7 @@ Disconnecting from server...
 
 ```
 Start UdpNTPClient on NUCLEO_F767ZI, using W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1687,7 +1852,7 @@ The UTC time is 22:20:21
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1792,7 +1957,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running 
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] =========== USE_ETHERNET3 ===========
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1896,7 +2061,7 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start WebClientMulti_SSL on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2032,7 +2197,7 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2066,7 +2231,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet2 Library** running 
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2098,7 +2263,7 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2132,7 +2297,7 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2164,7 +2329,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running 
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.2.1
+EthernetWebServer_SSL_STM32 v1.3.0
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2182,13 +2347,172 @@ Attempting MQTT connection to mqtt.thingstream.io
 ...connected
 Published connection message successfully!
 Subcribed to: esp32-sniffer/12345678/ble
-MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
 ```
+
+---
+
+#### 12. MQTTS_ThingStream_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library
+
+The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library** running [MQTTS_ThingStream_LAN8720 example](examples/STM32_LAN8720/MQTTS_ThingStream_LAN8720)
+
+```
+Start MQTTS_ThingStream_ThingStream on on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.3.0
+You're connected to the network, IP = 192.168.2.107
+***************************************
+esp32-sniffer/12345678/ble
+***************************************
+Attempting MQTT connection to mqtt.thingstream.io
+...connected
+Published connection message successfully!
+Subcribed to: esp32-sniffer/12345678/ble
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+```
+
+---
+
+#### 13. WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+
+The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library** running [WebClient_SSL_LAN8720 example](examples/STM32_LAN8720/WebClient_SSL_LAN8720)
+
+```
+Start WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.3.0
+Using mac index = 6
+Connected! IP address: 192.168.2.138
+Connecting to : www.arduino.cc, port : 443
+Connected to www.arduino.cc
+Took: 776
+HTTP/1.1 200 OK
+Date: Sun, 11 Apr 2021 18:32:19 GMT
+Content-Type: text/plain
+Transfer-Encoding: chunked
+Connection: close
+Set-Cookie: __cfduid=d3798c650bbc319e17e80cc276988dd3c1618165939; expires=Tue, 11-May-21 18:32:19 GMT; path=/; domain=.arduino.cc; HttpOnly; SameSite=Lax
+Last-Modified: Wed, 02 Oct 2013 13:46:47 GMT
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=500; includeSubDomains
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+CF-Cache-Status: DYNAMIC
+cf-request-id: 0963cdd4ce0000f97deeac8000000001
+Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Server: cloudflare
+CF-RAY: 63e64c014c93f97d-YYZ
+alt-svc: h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
+
+8d7
+
+           `:;;;,`                      .:;;:.           
+        .;;;;;;;;;;;`                :;;;;;;;;;;:     TM 
+      `;;;;;;;;;;;;;;;`            :;;;;;;;;;;;;;;;      
+     :;;;;;;;;;;;;;;;;;;         `;;;;;;;;;;;;;;;;;;     
+    ;;;;;;;;;;;;;;;;;;;;;       .;;;;;;;;;;;;;;;;;;;;    
+   ;;;;;;;;:`   `;;;;;;;;;     ,;;;;;;;;.`   .;;;;;;;;   
+  .;;;;;;,         :;;;;;;;   .;;;;;;;          ;;;;;;;  
+  ;;;;;;             ;;;;;;;  ;;;;;;,            ;;;;;;. 
+ ,;;;;;               ;;;;;;.;;;;;;`              ;;;;;; 
+ ;;;;;.                ;;;;;;;;;;;`      ```       ;;;;;`
+ ;;;;;                  ;;;;;;;;;,       ;;;       .;;;;;
+`;;;;:                  `;;;;;;;;        ;;;        ;;;;;
+,;;;;`    `,,,,,,,,      ;;;;;;;      .,,;;;,,,     ;;;;;
+:;;;;`    .;;;;;;;;       ;;;;;,      :;;;;;;;;     ;;;;;
+:;;;;`    .;;;;;;;;      `;;;;;;      :;;;;;;;;     ;;;;;
+.;;;;.                   ;;;;;;;.        ;;;        ;;;;;
+ ;;;;;                  ;;;;;;;;;        ;;;        ;;;;;
+ ;;;;;                 .;;;;;;;;;;       ;;;       ;;;;;,
+ ;;;;;;               `;;;;;;;;;;;;                ;;;;; 
+ `;;;;;,             .;;;;;; ;;;;;;;              ;;;;;; 
+  ;;;;;;:           :;;;;;;.  ;;;;;;;            ;;;;;;  
+   ;;;;;;;`       .;;;;;;;,    ;;;;;;;;        ;;;;;;;:  
+    ;;;;;;;;;:,:;;;;;;;;;:      ;;;;;;;;;;:,;;;;;;;;;;   
+    `;;;;;;;;;;;;;;;;;;;.        ;;;;;;;;;;;;;;;;;;;;    
+      ;;;;;;;;;;;;;;;;;           :;;;;;;;;;;;;;;;;:     
+       ,;;;;;;;;;;;;;,              ;;;;;;;;;;;;;;       
+         .;;;;;;;;;`                  ,;;;;;;;;:         
+                                                         
+                                                         
+                                                         
+                                                         
+    ;;;   ;;;;;`  ;;;;:  .;;  ;; ,;;;;;, ;;. `;,  ;;;;   
+    ;;;   ;;:;;;  ;;;;;; .;;  ;; ,;;;;;: ;;; `;, ;;;:;;  
+   ,;:;   ;;  ;;  ;;  ;; .;;  ;;   ,;,   ;;;,`;, ;;  ;;  
+   ;; ;:  ;;  ;;  ;;  ;; .;;  ;;   ,;,   ;;;;`;, ;;  ;;. 
+   ;: ;;  ;;;;;:  ;;  ;; .;;  ;;   ,;,   ;;`;;;, ;;  ;;` 
+  ,;;;;;  ;;`;;   ;;  ;; .;;  ;;   ,;,   ;; ;;;, ;;  ;;  
+  ;;  ,;, ;; .;;  ;;;;;:  ;;;;;: ,;;;;;: ;;  ;;, ;;;;;;  
+  ;;   ;; ;;  ;;` ;;;;.   `;;;:  ,;;;;;, ;;  ;;,  ;;;;   
+
+0
+
+(EthernetSSLClient)(SSL_WARN)(connected): Socket was dropped unexpectedly (this can be an alternative to closing the connection)
+
+Disconnecting.
+Received 3059 bytes in 0.4299 s, rate = 7.12 kbytes/second
+```
+
+---
+
+#### 14. MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+
+The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library** running [MQTTClient_SSL_LAN8720 example](examples/STM32_LAN8720/MQTTClient_SSL_LAN8720)
+
+```
+Start MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.3.0
+You're connected to the network, IP = 192.168.2.138
+Attempting MQTT connection to broker.emqx.io...connected
+Published connection message successfully!
+Subcribed to: STM32_Sub
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
+
+```
+
+---
+
+#### 15. MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+
+The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library** running [MQTTClient_SSL_Complex_LAN8720 example](examples/STM32_LAN8720/MQTTClient_SSL_Complex_LAN8720)
+
+```
+Start MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
+EthernetWebServer_SSL_STM32 v1.3.0
+You're connected to the network, IP = 192.168.2.142
+Attempting MQTT connection to broker.emqx.io...connected
+Published connection message successfully!
+Subcribed to: STM32_Sub
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 6546
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 6546
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 11549
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 11549
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 16557
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 16557
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 21565
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 21565
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 26573
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 26573
+Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 31581
+Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 31581
+
+```
+
 ---
 ---
 
@@ -2204,6 +2528,9 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 #define _ETHERNET_WEBSERVER_LOGLEVEL_       0
 ```
 
+
+
+---
 ---
 
 ## Troubleshooting
@@ -2214,6 +2541,12 @@ If you get compilation errors, more often than not, you may need to install a ne
 ---
 
 ## Releases
+
+### Releases v1.3.0
+
+1. Add support to **LAN8720** Ethernet for many **STM32F4** (F407xx, NUCLEO_F429ZI) and **STM32F7** (DISCO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG) boards.
+2. Add LAN8720 examples
+3. Add Packages' Patches for STM32 to use LAN8720 with STM32Ethernet and LwIP libraries
 
 ### Releases v1.2.1
 
@@ -2253,7 +2586,7 @@ If you get compilation errors, more often than not, you may need to install a ne
   - **Nucleo-144 (F429ZI, F767ZI)**
   - **Discovery (STM32F746G-DISCOVERY)**
   - **All STM32 boards (STM32F/L/H/G/WB/MP1) with 32K+ Flash, with Built-in Ethernet**
-  - See [EthernetWebServer_SSL_STM32 Support and Test Results](https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/issues/1)
+  - See [EthernetWebServer_STM32 Support and Test Results](https://github.com/khoih-prog/EthernetWebServer_STM32/issues/1)
   
 2. **STM32F/L/H/G/WB/MP1 boards (with 32+K Flash) running W5x00 or ENC28J60 shields)**
 
@@ -2271,11 +2604,19 @@ If you get compilation errors, more often than not, you may need to install a ne
 - Generic Flight Controllers
 - Midatronics boards
 
-#### Currently supported Ethernet shields/modules:
+3. **STM32 boards using Ethernet LAN8720** such as :
+
+  - **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG)**
+  - **Discovery (DISCO_F746NG)**
+  - **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
+
+#### Currently supported Ethernet shields/modules
 
 1. W5x00 using [`Ethernet`](https://www.arduino.cc/en/Reference/Ethernet), [`EthernetLarge`](https://github.com/OPEnSLab-OSU/EthernetLarge), [`Ethernet2`](https://github.com/adafruit/Ethernet2) or [`Ethernet3`](https://github.com/sstaub/Ethernet3) library
 
 2. ENC28J60 using new [`EthernetENC`](https://github.com/jandrassy/EthernetENC) or [`UIPEthernet`](https://github.com/UIPEthernet/UIPEthernet) library
+
+3. LAN8720 using new [`STM32Ethernet`](https://github.com/stm32duino/STM32Ethernet) and [`LwIP`](https://github.com/stm32duino/LwIP) libraries.
 
 #### Not supported boards
 
@@ -2310,10 +2651,9 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 ### TO DO
 
 1. Bug Searching and Killing
-2. Add SSL/TLS Server support
-3. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
-4. Add mDNS features.
-5. Use AsyncTCP features from [Phil Bowles' STM32AsyncTCP](https://github.com/philbowles/STM32AsyncTCP).
+2. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
+3. Add mDNS features.
+4. Use AsyncTCP features from [Phil Bowles' STM32AsyncTCP](https://github.com/philbowles/STM32AsyncTCP).
 
 
 ### DONE
@@ -2326,6 +2666,9 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
  6. Add support to PROGMEM-related commands, such as sendContent_P() and send_P()
  7. Add TLS/SSL Client support to all STM32 boards (**STM32F/L/H/G/WB/MP1**) with 32K+ Flash.
  8. Add **High-level HTTP (GET, POST, PUT, PATCH, DELETE) and WebSocket Client**
+ 9. Add support to **Ethernet LAN8720** using [STM32Ethernet library](https://github.com/stm32duino/STM32Ethernet), for boards such as **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG), Discovery (DISCO_F746NG)** and **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
+ 
+ 
 ---
 
 ### Contributions and Thanks
