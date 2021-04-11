@@ -9,7 +9,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
        
-  Version: 1.2.1
+  Version: 1.3.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -19,11 +19,12 @@
   1.1.2   K Hoang      19/11/2020 Add SSL debug feature. Enhance examples.
   1.2.0   K Hoang      20/11/2020 Add basic HTTP and WebSockets Client by merging ArduinoHttpClient
   1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
+  1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
  *****************************************************************************************************************************/
 
 #pragma once
 
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.2.1"
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.3.0"
 
 #if !( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
        defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
@@ -44,7 +45,12 @@
 #if USE_BUILTIN_ETHERNET
   #include <LwIP.h>
   #include <STM32Ethernet.h>
-  #warning Using built-in LAN8742A Ethernet with STM32Ethernet library from EthernetWebServer_STM32
+  
+  #if USING_LAN8720
+    #warning Using built-in LAN8720 Ethernet with STM32Ethernet library from EthernetWebServer_STM32
+  #else
+    #warning Using built-in LAN8742A Ethernet with STM32Ethernet library from EthernetWebServer_STM32
+  #endif
 #elif USE_UIP_ETHERNET
   #include <UIPEthernet.h>
   #include <utility/logging.h>
