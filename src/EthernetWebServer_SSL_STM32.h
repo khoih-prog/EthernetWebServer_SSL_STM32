@@ -9,7 +9,9 @@
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   Licensed under MIT license
        
-  Version: 1.3.0
+  Licensed under MIT license
+  
+  Version: 1.3.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -20,11 +22,12 @@
   1.2.0   K Hoang      20/11/2020 Add basic HTTP and WebSockets Client by merging ArduinoHttpClient
   1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
- *****************************************************************************************************************************/
+  1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
+ *************************************************************************************************************************************/
 
 #pragma once
 
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.3.0"
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.3.1"
 
 #if !( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
        defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
