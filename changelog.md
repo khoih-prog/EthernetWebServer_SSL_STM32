@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Major Releases v1.4.0](#major-releases-v140)
   * [Releases v1.3.1](#releases-v131)
   * [Releases v1.3.0](#releases-v130)
   * [Releases v1.2.1](#releases-v121)
@@ -24,6 +25,13 @@
 ---
 
 ## Changelog
+
+### Major Releases v1.4.0
+
+1. Reduce usage of Arduino String with std::string
+2. Optimize library code and examples by using **reference-passing instead of value-passing**.
+3. Fix bug related to String in library and examples
+4. Update `Packages' Patches`
 
 ### Releases v1.3.1
 
