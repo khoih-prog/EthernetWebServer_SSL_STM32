@@ -11,7 +11,7 @@
        
   Licensed under MIT license
   
-  Version: 1.3.1
+  Version: 1.4.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -23,6 +23,7 @@
   1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
+  1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
  *************************************************************************************************************************************/
 
 #pragma once
@@ -45,7 +46,7 @@ class FunctionRequestHandler : public RequestHandler
     {
     }
 
-    bool canHandle(HTTPMethod requestMethod, String requestUri) override
+    bool canHandle(const HTTPMethod& requestMethod, const String& requestUri) override
     {
       if (_method != HTTP_ANY && _method != requestMethod)
         return false;
@@ -65,7 +66,7 @@ class FunctionRequestHandler : public RequestHandler
       return false;
     }
 
-    bool canUpload(String requestUri) override
+    bool canUpload(const String& requestUri) override
     {
       if (!_ufn || !canHandle(HTTP_POST, requestUri))
         return false;
@@ -73,7 +74,7 @@ class FunctionRequestHandler : public RequestHandler
       return true;
     }
 
-    bool handle(EthernetWebServer& server, HTTPMethod requestMethod, String requestUri) override
+    bool handle(EthernetWebServer& server, const HTTPMethod& requestMethod, const String& requestUri) override
     {
       ETW_UNUSED(server);
       
@@ -84,7 +85,7 @@ class FunctionRequestHandler : public RequestHandler
       return true;
     }
 
-    void upload(EthernetWebServer& server, String requestUri, HTTPUpload& upload) override
+    void upload(EthernetWebServer& server, const String& requestUri, const HTTPUpload& upload) override
     {
       ETW_UNUSED(server);
       ETW_UNUSED(upload);
@@ -104,7 +105,7 @@ class StaticRequestHandler : public RequestHandler
 {
   public:
 
-    bool canHandle(HTTPMethod requestMethod, String requestUri) override
+    bool canHandle(const HTTPMethod& requestMethod, const String& requestUri) override
     {
       if (requestMethod != HTTP_GET)
         return false;

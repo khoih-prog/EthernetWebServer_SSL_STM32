@@ -11,7 +11,7 @@
        
   Licensed under MIT license
   
-  Version: 1.3.1
+  Version: 1.4.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -23,6 +23,7 @@
   1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
+  1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
  *************************************************************************************************************************************/
 
 #pragma once
@@ -41,7 +42,7 @@ class RequestHandler
 
     virtual ~RequestHandler() { }
 
-    virtual bool canHandle(HTTPMethod method, String uri)
+    virtual bool canHandle(const HTTPMethod& method, const String& uri)
     {
       ETW_UNUSED(method);
       ETW_UNUSED(uri);
@@ -49,14 +50,14 @@ class RequestHandler
       return false;
     }
 
-    virtual bool canUpload(String uri)
+    virtual bool canUpload(const String& uri)
     {
       ETW_UNUSED(uri);
       
       return false;
     }
 
-    virtual bool handle(EthernetWebServer& server, HTTPMethod requestMethod, String requestUri)
+    virtual bool handle(EthernetWebServer& server, const HTTPMethod& requestMethod, const String& requestUri)
     {
       ETW_UNUSED(server);
       ETW_UNUSED(requestMethod);
@@ -65,7 +66,7 @@ class RequestHandler
       return false;
     }
 
-    virtual void upload(EthernetWebServer& server, String requestUri, HTTPUpload& upload) 
+    virtual void upload(EthernetWebServer& server, const String& requestUri, const HTTPUpload& upload) 
     {
       ETW_UNUSED(server);
       ETW_UNUSED(requestUri);

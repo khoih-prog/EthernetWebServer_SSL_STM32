@@ -11,7 +11,7 @@
        
   Licensed under MIT license
   
-  Version: 1.3.1
+  Version: 1.4.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -23,17 +23,24 @@
   1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
+  1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
  *************************************************************************************************************************************/
 
 #pragma once
-
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.3.1"
 
 #if !( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
        defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
        defined(STM32WB) || defined(STM32MP1) )
  #error This code is designed to run on STM32F/L/H/G/WB/MP1 platform! Please check your Tools->Board setting.
 #endif
+
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.4.0"
+
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MAJOR    1
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MINOR    4
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_PATCH    0
+
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_INT      1004000
 
 #define USE_NEW_WEBSERVER_VERSION     true
 
@@ -139,6 +146,37 @@ enum HTTPAuthMethod
 #define CONTENT_LENGTH_UNKNOWN  ((size_t) -1)
 #define CONTENT_LENGTH_NOT_SET  ((size_t) -2)
 
+/////////////////////////////////////////////////////////////////////////
+
+#define RETURN_NEWLINE       "\r\n"
+
+#include <string>
+#include <Arduino.h>
+
+typedef std::string EWString;
+
+EWString fromString(const String& str)
+{
+  return str.c_str();
+}
+
+EWString fromString(const String&& str)
+{
+  return str.c_str();
+}
+
+String fromEWString(const EWString& str)
+{
+  return str.c_str();
+}
+
+String fromEWString(const EWString&& str)
+{
+  return str.c_str();
+}
+
+/////////////////////////////////////////////////////////////////////////
+
 class EthernetWebServer;
 
 typedef struct 
@@ -208,17 +246,18 @@ class EthernetWebServer
     }
     #endif
 
-    String arg(String name);        // get request argument value by name
+    String arg(const String& name);        // get request argument value by name
     String arg(int i);              // get request argument value by number
     String argName(int i);          // get request argument name by number
+    
     int args();                     // get arguments count
-    bool hasArg(String name);       // check if argument exists
+    bool hasArg(const String& name);       // check if argument exists
     void collectHeaders(const char* headerKeys[], const size_t headerKeysCount); // set the request headers to collect
-    String header(String name);      // get request header value by name
+    String header(const String& name);      // get request header value by name
     String header(int i);              // get request header value by number
     String headerName(int i);          // get request header name by number
     int headers();                     // get header count
-    bool hasHeader(String name);       // check if header exists
+    bool hasHeader(const String& name);       // check if header exists
 
     String hostHeader();            // get request host header if available or empty String if not
 
@@ -275,8 +314,8 @@ class EthernetWebServer
     int  _parseArgumentsPrivate(const String& data, vl::Func<void(String&,String&,const String&,int,int,int,int)> handler);
     bool _parseForm(EthernetClient& client, const String& boundary, uint32_t len);
     #else
-    void _parseArguments(String data);    
-    bool _parseForm(EthernetClient& client, String boundary, uint32_t len);
+    void _parseArguments(const String& data);    
+    bool _parseForm(EthernetClient& client, const String& boundary, uint32_t len);
     #endif
     
     static String _responseCodeToString(int code);
@@ -284,6 +323,7 @@ class EthernetWebServer
     void _uploadWriteByte(uint8_t b);
     uint8_t _uploadReadByte(EthernetClient& client);
     void _prepareHeader(String& response, int code, const char* content_type, size_t contentLength);
+    void _prepareHeader(EWString& response, int code, const char* content_type, size_t contentLength);
     bool _collectHeader(const char* headerName, const char* headerValue);
 
     struct RequestArgument 

@@ -8,7 +8,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
   Licensed under MIT license
   
-  Version: 1.3.1
+  Version: 1.4.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -20,6 +20,7 @@
   1.2.1   K Hoang      26/12/2020 Suppress all possible compiler warnings
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
+  1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
  *************************************************************************************************************************************/
 
 // Library to simplify HTTP fetching on Arduino
