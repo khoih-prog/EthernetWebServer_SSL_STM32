@@ -11,7 +11,7 @@
        
   Licensed under MIT license
   
-  Version: 1.4.0
+  Version: 1.4.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -24,6 +24,7 @@
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
   1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
+  1.4.1   K Hoang      27/12/2021 Fix wrong http status header bug and authenticate issue caused by libb64
  *************************************************************************************************************************************/
 
 #pragma once
@@ -34,13 +35,13 @@
  #error This code is designed to run on STM32F/L/H/G/WB/MP1 platform! Please check your Tools->Board setting.
 #endif
 
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.4.0"
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.4.1"
 
 #define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MAJOR    1
 #define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MINOR    4
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_PATCH    0
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_PATCH    1
 
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_INT      1004000
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_INT      1004001
 
 #define USE_NEW_WEBSERVER_VERSION     true
 

@@ -1,8 +1,5 @@
 /****************************************************************************************************************************
-  cencode.c - c source to a base64 encoding algorithm implementation
-
-  This is part of the libb64 project, and has been placed in the public domain.
-  For details, see http://sourceforge.net/projects/libb64
+  cencoder.c - c source to a base64 decoding algorithm implementation
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
@@ -15,7 +12,7 @@
        
   Licensed under MIT license
   
-  Version: 1.4.0
+  Version: 1.4.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -28,8 +25,9 @@
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
   1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
- *************************************************************************************************************************************/
-
+  1.4.1   K Hoang      27/12/2021 Fix wrong http status header bug and authenticate issue caused by libb64
+ *****************************************************************************************************************************/
+ 
 #include "cencode.h"
 
 const int CHARS_PER_LINE = 72;
@@ -56,8 +54,8 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
   const char* plainchar = plaintext_in;
   const char* const plaintextend = plaintext_in + length_in;
   char* codechar = code_out;
-  char  result;
-  char  fragment;
+  char result;
+  char fragment;
 
   result = state_in->result;
 
@@ -66,7 +64,6 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
       while (1)
       {
       case step_A:
-
         if (plainchar == plaintextend)
         {
           state_in->result = result;
@@ -79,10 +76,7 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
         *codechar++ = base64_encode_value(result);
         result = (fragment & 0x003) << 4;
 
-        break;
-
       case step_B:
-
         if (plainchar == plaintextend)
         {
           state_in->result = result;
@@ -95,10 +89,7 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
         *codechar++ = base64_encode_value(result);
         result = (fragment & 0x00f) << 2;
 
-        break;
-
       case step_C:
-
         if (plainchar == plaintextend)
         {
           state_in->result = result;
@@ -119,8 +110,6 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
           *codechar++ = '\n';
           state_in->stepcount = 0;
         }
-
-        break;
       }
   }
 
@@ -158,5 +147,5 @@ int base64_encode_chars(const char* plaintext_in, int length_in, char* code_out)
   base64_init_encodestate(&_state);
   int len = base64_encode_block(plaintext_in, length_in, code_out, &_state);
 
-  return ( len + base64_encode_blockend((code_out + len), &_state) );
+  return len + base64_encode_blockend((code_out + len), &_state);
 }

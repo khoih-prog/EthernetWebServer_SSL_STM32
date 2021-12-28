@@ -1,8 +1,5 @@
 /****************************************************************************************************************************
-  cencode.h - c header for a base64 encoding algorithm
-
-  This is part of the libb64 project, and has been placed in the public domain.
-  For details, see http://sourceforge.net/projects/libb64
+  cencoder.h - c source to a base64 decoding algorithm implementation
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
@@ -15,7 +12,7 @@
        
   Licensed under MIT license
   
-  Version: 1.4.0
+  Version: 1.4.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -28,7 +25,8 @@
   1.3.0   K Hoang      11/04/2021 Add support to LAN8720 using STM32F4 or STM32F7
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
   1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
- *************************************************************************************************************************************/
+  1.4.1   K Hoang      27/12/2021 Fix wrong http status header bug and authenticate issue caused by libb64
+ *****************************************************************************************************************************/
 
 #pragma once
 
@@ -70,3 +68,4 @@ int base64_encode_chars(const char* plaintext_in, int length_in, char* code_out)
 #endif
 
 #endif /* BASE64_CENCODE_H */
+
