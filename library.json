@@ -1,6 +1,6 @@
 {
   "name": "EthernetWebServer_SSL_STM32",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "keywords": "WebServer, built-in Ethernet, Arduino, STM32F, STM32L, STM32H, STM32G, STM32WB, STM32MP1, Ethernet shield, Nucleo-144, Nucleo-64, Nucleo-32, LAN8742A, LAN8720, ENC28J60, W5x00, W5500, W5100, SSL, TLS, HTTP-Client, WebSocket-Client, server, client, websocket",
   "description": "Simple TLS/SSL Ethernet WebServer, HTTP Client and WebSocket Client library for STM32F/L/H/G/WB/MP1 boards running built-in Ethernet LAN8742A, LAN8720 or Ethernet W5x00, ENC28J60 shields. The WebServer supports HTTP/HTTPS GET and POST requests, provides argument parsing, handles one client at a time. It now provides HTTP(S) Client and Secured WebSockets Client. It supports Arduino STM32F/L/H/G/WB/MP1 series with 32+ Kbytes of Flash, using built-in LAN8742A Ethernet (Nucleo-144: F429ZI, F767ZI, Discovery: STM32F746G-DISCOVERY), or LAN8720, ENC28J60, W5x00 Ethernet shields.",
   "authors":

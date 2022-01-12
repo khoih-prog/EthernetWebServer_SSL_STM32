@@ -298,8 +298,8 @@ These boards are not supported:
    - [`Ethernet2 library v1.0.4+`](https://github.com/khoih-prog/Ethernet2) for W5500. [![GitHub release](https://img.shields.io/github/release/adafruit/Ethernet2.svg)](https://github.com/adafruit/Ethernet2/releases/latest)
    - [`Ethernet3 library v1.5.5+`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. [![GitHub release](https://img.shields.io/github/release/sstaub/Ethernet3.svg)](https://github.com/sstaub/Ethernet3/releases/latest)
  6. For ENC28J60 Ethernet:
-   - [`EthernetENC library v2.0.1+`](https://github.com/jandrassy/EthernetENC) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/jandrassy/EthernetENC.svg)](https://github.com/jandrassy/EthernetENC/releases/latest). **New and Better**
-   - [`UIPEthernet library v2.0.10+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/UIPEthernet/UIPEthernet.svg)](https://github.com/UIPEthernet/UIPEthernet/releases/latest)
+   - [`EthernetENC library v2.0.2+`](https://github.com/jandrassy/EthernetENC) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/jandrassy/EthernetENC.svg)](https://github.com/jandrassy/EthernetENC/releases/latest). **New and Better**
+   - [`UIPEthernet library v2.0.11+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/UIPEthernet/UIPEthernet.svg)](https://github.com/UIPEthernet/UIPEthernet/releases/latest)
    
 ---
 
@@ -338,12 +338,12 @@ To use LAN8720 on some STM32 boards
 - **Discovery (DISCO_F746NG)**
 - **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
 
-you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.1.0/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.1.0/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.1.0/system) to overwrite the old files.
+you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system) to overwrite the old files.
 
-Supposing the STM32 stm32 core version is 2.1.0. These files must be copied into the directory:
+Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
 
-- `~/.arduino15/packages/STM32/hardware/stm32/2.1.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
-- `~/.arduino15/packages/STM32/hardware/stm32/2.1.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
 theses files must be copied into the corresponding directory:
@@ -354,12 +354,12 @@ theses files must be copied into the corresponding directory:
 
 #### 2. For STM32 boards to use Serial1
 
-**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/2.1.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.1.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
+**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/2.2.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.2.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
 
-Supposing the STM32 stm32 core version is 2.1.0. These files must be copied into the directory:
+Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
 
-- `~/.arduino15/packages/STM32/hardware/stm32/2.1.0/variants/STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
-- `~/.arduino15/packages/STM32/hardware/stm32/2.1.0/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
 theses files must be copied into the corresponding directory:
@@ -1641,7 +1641,7 @@ Following is debug terminal output and screen shot when running example [Advance
 
 ```
 Start AdvancedWebServer on NUCLEO_F767ZI, using LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 HTTP EthernetWebServer is @ IP : 192.168.2.117
 .[EWS] String Len = 0, extend to 2048
 EthernetWebServer::handleClient: New Client
@@ -1766,7 +1766,7 @@ The following is debug terminal output when running example [WebClientRepeating]
 
 ```
 Start WebClientRepeating on NUCLEO_F767ZI, using ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1841,7 +1841,7 @@ Disconnecting from server...
 
 ```
 Start UdpNTPClient on NUCLEO_F767ZI, using W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1865,7 +1865,7 @@ The UTC time is 22:20:21
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1970,7 +1970,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running 
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] =========== USE_ETHERNET3 ===========
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2074,7 +2074,7 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start WebClientMulti_SSL on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2210,7 +2210,7 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2244,7 +2244,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet2 Library** running 
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2276,7 +2276,7 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2310,7 +2310,7 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2342,7 +2342,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running 
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -2376,7 +2376,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTS_ThingStream_ThingStream on on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 You're connected to the network, IP = 192.168.2.107
 ***************************************
 esp32-sniffer/12345678/ble
@@ -2400,7 +2400,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 Using mac index = 6
 Connected! IP address: 192.168.2.138
 Connecting to : www.arduino.cc, port : 443
@@ -2482,7 +2482,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 You're connected to the network, IP = 192.168.2.138
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -2506,7 +2506,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.1
+EthernetWebServer_SSL_STM32 v1.4.2
 You're connected to the network, IP = 192.168.2.142
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -2581,6 +2581,7 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
  9. Add support to **Ethernet LAN8720** using [STM32Ethernet library](https://github.com/stm32duino/STM32Ethernet), for boards such as **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG), Discovery (DISCO_F746NG)** and **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
 10. Reduce usage of Arduino String with std::string
 11. Optimize library code and examples by using **reference-passing instead of value-passing**.
+12. Fix authenticate issue and compiler warnings caused by libb64
  
 ---
 
