@@ -12,7 +12,7 @@
        
   Licensed under MIT license
   
-  Version: 1.4.1
+  Version: 1.4.2
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -26,6 +26,7 @@
   1.3.1   K Hoang      04/10/2021 Change option for PIO `lib_compat_mode` from default `soft` to `strict`. Update Packages Patches
   1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
   1.4.1   K Hoang      27/12/2021 Fix wrong http status header bug and authenticate issue caused by libb64
+  1.4.2   K Hoang      11/01/2022 Fix libb64 fallthrough compile warning
  *****************************************************************************************************************************/
  
 #include "cencode.h"
@@ -46,7 +47,7 @@ char base64_encode_value(char value_in)
   if (value_in > 63)
     return '=';
 
-  return encoding[(int)value_in];
+  return encoding[(unsigned int)value_in];
 }
 
 int base64_encode_block(const char* plaintext_in, int length_in, char* code_out, base64_encodestate* state_in)
@@ -75,6 +76,8 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
         result = (fragment & 0x0fc) >> 2;
         *codechar++ = base64_encode_value(result);
         result = (fragment & 0x003) << 4;
+        
+        // fall through
 
       case step_B:
         if (plainchar == plaintextend)
@@ -88,7 +91,9 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
         result |= (fragment & 0x0f0) >> 4;
         *codechar++ = base64_encode_value(result);
         result = (fragment & 0x00f) << 2;
-
+        
+        // fall through
+        
       case step_C:
         if (plainchar == plaintextend)
         {
@@ -110,6 +115,8 @@ int base64_encode_block(const char* plaintext_in, int length_in, char* code_out,
           *codechar++ = '\n';
           state_in->stepcount = 0;
         }
+        
+        // fall through
       }
   }
 
