@@ -7,12 +7,10 @@
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
   
-  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
-  Licensed under MIT license
-       
-  Licensed under MIT license
+  Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
+  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
   
-  Version: 1.4.3
+  Version: 1.4.4
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -23,7 +21,8 @@
   1.4.1   K Hoang      27/12/2021 Fix wrong http status header bug and authenticate issue caused by libb64
   1.4.2   K Hoang      11/01/2022 Fix libb64 fallthrough compile warning
   1.4.3   K Hoang      02/03/2022 Fix decoding error bug
- *****************************************************************************************************************************/
+  1.4.4   K Hoang      19/03/2022 Change licence from `MIT` to `GPLv3`
+ ****************************************************************************************************************************/
  
 #include "cencode.h"
 
