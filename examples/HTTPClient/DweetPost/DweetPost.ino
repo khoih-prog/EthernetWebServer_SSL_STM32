@@ -8,7 +8,7 @@
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
   
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
-  Licensed under MIT license
+
   Connects to dweet.io once every ten seconds, sends a POST request and a request body.
 
   Shows how to use Strings to assemble path and parse content from response. dweet.io expects:

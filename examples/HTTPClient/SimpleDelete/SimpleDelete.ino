@@ -8,7 +8,6 @@
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
   
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
-  Licensed under MIT license
 
   Simple DELETE client for HttpClient
   Connects to server once every five seconds, sends a DELETE request
