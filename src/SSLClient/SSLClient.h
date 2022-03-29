@@ -397,7 +397,7 @@ class EthernetSSLClient : public Client
       return m_timeout;
     }
     
-		/**
+    /**
     @brief Change the time used during x509 verification to a different value.
 
     This function directly calls br_x509_minimal_set_time to change the validation
