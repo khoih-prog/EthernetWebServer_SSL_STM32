@@ -9,7 +9,7 @@
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
   
-  Version: 1.4.4
+  Version: 1.4.5
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -21,6 +21,7 @@
   1.4.2   K Hoang      11/01/2022 Fix libb64 fallthrough compile warning
   1.4.3   K Hoang      02/03/2022 Fix decoding error bug
   1.4.4   K Hoang      19/03/2022 Change licence from `MIT` to `GPLv3`
+  1.4.5   K Hoang      29/03/2022 Sync with `SSLClient` v1.6.11
  ****************************************************************************************************************************/
 
 #pragma once
@@ -31,13 +32,13 @@
  #error This code is designed to run on STM32F/L/H/G/WB/MP1 platform! Please check your Tools->Board setting.
 #endif
 
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.4.4"
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION      "EthernetWebServer_SSL_STM32 v1.4.5"
 
 #define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MAJOR    1
 #define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MINOR    4
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_PATCH    4
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_PATCH    5
 
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_INT      1004004
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_INT      1004005
 
 #define USE_NEW_WEBSERVER_VERSION     true
 
