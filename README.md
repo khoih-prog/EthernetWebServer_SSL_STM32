@@ -99,8 +99,9 @@
     * [16. WebClientRepeating](examples/WebClientRepeating)
     * [17. WebClient_SSL](examples/WebClient_SSL)
     * [18. WebServer](examples/WebServer)
-    * [19. **MQTTS_ThingStream**](examples/MQTTS_ThingStream).
-    * [20. **MQTT_ThingStream**](examples/MQTT_ThingStream).
+    * [19. **MQTTS_ThingStream**](examples/MQTTS_ThingStream)
+    * [20. **MQTT_ThingStream**](examples/MQTT_ThingStream)
+    * [21. **AWS_IoT**](examples/AWS_IoT) **New**
   * [HTTP and WebSocket Client New Examples](#http-and-websocket-client-new-examples)
     * [ 1. BasicAuthGet](examples/HTTPClient/BasicAuthGet)
     * [ 2. CustomHeader](examples/HTTPClient/CustomHeader)
@@ -1194,8 +1195,9 @@ Connect FDTI (USB to Serial) as follows:
 16. [WebClientRepeating](examples/WebClientRepeating)
 17. [WebClient_SSL](examples/WebClient_SSL)
 18. [WebServer](examples/WebServer)
-19. [**MQTTS_ThingStream**](examples/MQTTS_ThingStream).
-20. [**MQTT_ThingStream**](examples/MQTT_ThingStream).
+19. [**MQTTS_ThingStream**](examples/MQTTS_ThingStream)
+20. [**MQTT_ThingStream**](examples/MQTT_ThingStream)
+21. [**AWS_IoT**](examples/AWS_IoT) **New**
 
 #### HTTP and WebSocket Client New Examples
 
@@ -1254,7 +1256,7 @@ Following is debug terminal output and screen shot when running example [Advance
 
 ```
 Start AdvancedWebServer on NUCLEO_F767ZI, using LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 HTTP EthernetWebServer is @ IP : 192.168.2.117
 .[EWS] String Len = 0, extend to 2048
 EthernetWebServer::handleClient: New Client
@@ -1379,7 +1381,7 @@ The following is debug terminal output when running example [WebClientRepeating]
 
 ```
 Start WebClientRepeating on NUCLEO_F767ZI, using ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1454,7 +1456,7 @@ Disconnecting from server...
 
 ```
 Start UdpNTPClient on NUCLEO_F767ZI, using W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1478,7 +1480,7 @@ The UTC time is 22:20:21
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1583,7 +1585,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running 
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] =========== USE_ETHERNET3 ===========
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1687,7 +1689,7 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start WebClientMulti_SSL on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] =========================
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1823,7 +1825,7 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1857,7 +1859,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet2 Library** running 
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1889,7 +1891,7 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1923,7 +1925,7 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1955,7 +1957,7 @@ The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running 
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 [ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
 [ETHERNET_WEBSERVER] Default SPI pinout:
 [ETHERNET_WEBSERVER] MOSI: 11
@@ -1989,7 +1991,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTS_ThingStream_ThingStream on on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 You're connected to the network, IP = 192.168.2.107
 ***************************************
 esp32-sniffer/12345678/ble
@@ -2013,7 +2015,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 Using mac index = 6
 Connected! IP address: 192.168.2.138
 Connecting to : www.arduino.cc, port : 443
@@ -2095,7 +2097,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 You're connected to the network, IP = 192.168.2.138
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -2119,7 +2121,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.4
+EthernetWebServer_SSL_STM32 v1.4.5
 You're connected to the network, IP = 192.168.2.142
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -2196,6 +2198,7 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 11. Optimize library code and examples by using **reference-passing instead of value-passing**.
 12. Fix authenticate issue and compiler warnings caused by libb64
 13. Change licence from `MIT` to `GPLv3`
+14. Sync with [SSLClient v1.6.11](https://github.com/OPEnSLab-OSU/SSLClient/releases/tag/v1.6.11)
 
  
 ---
@@ -2206,6 +2209,7 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 2. [OPEnSLab-OSU](https://github.com/PEnSLab-OSU) for [OPEnSLab-OSU's SSLClient](https://github.com/OPEnSLab-OSU/SSLClient)
 3. Thanks to [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) to help debug and test.
 4. [Adrian McEwen](https://github.com/amcewen) for [HttpClient Library](https://github.com/amcewen/HttpClient) on which the [ArduinoHttpClient Library](https://github.com/arduino-libraries/ArduinoHttpClient) and this [EthernetWebServer library](https://github.com/khoih-prog/EthernetWebServer) are relied.
+5. Thanks to [Marcel Stör](https://github.com/marcelstoer) to report issue [Pull in OPEnSLab-OSU's SSLClient v1.6.11 #17](https://github.com/khoih-prog/EthernetWebServer_SSL/issues/17) which was fixed in v1.4.5
 
 <table>
   <tr>
@@ -2213,6 +2217,7 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
     <td align="center"><a href="https://github.com/OPEnSLab-OSU"><img src="https://github.com/OPEnSLab-OSU.png" width="100px;" alt="OPEnSLab-OSU"/><br /><sub><b>⭐️ OPEnSLab-OSU</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/amcewen"><img src="https://github.com/amcewen.png" width="100px;" alt="amcewen"/><br /><sub><b>⭐️ Adrian McEwen</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/tcpipchip"><img src="https://github.com/tcpipchip.png" width="100px;" alt="tcpipchip"/><br /><sub><b>Miguel Wisintainer</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/marcelstoer"><img src="https://github.com/marcelstoer.png" width="100px;" alt="marcelstoer"/><br /><sub><b>Marcel Stör</b></sub></a><br /></td>
   </tr> 
 </table>
 

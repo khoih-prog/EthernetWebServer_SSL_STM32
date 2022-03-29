@@ -11,6 +11,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Releases v1.4.5](#releases-v145)
   * [Releases v1.4.4](#releases-v144)
   * [Releases v1.4.3](#releases-v143)
   * [Releases v1.4.2](#releases-v142)
@@ -28,6 +29,12 @@
 ---
 
 ## Changelog
+
+### Releases v1.4.5
+
+1. Sync with [SSLClient v1.6.11](https://github.com/OPEnSLab-OSU/SSLClient/releases/tag/v1.6.11). Check [Pull in OPEnSLab-OSU's SSLClient v1.6.11 #17](https://github.com/khoih-prog/EthernetWebServer_SSL/issues/17)
+2. Add example [AWS_IoT](examples/AWS_IoT)
+
 
 ### Releases v1.4.4
 
