@@ -30,6 +30,7 @@
 #include "defines.h"
 
 #include "certificates.h"     // This file must be regenerated at https://openslab-osu.github.io/bearssl-certificate-utility/
+
 #include <PubSubClient.h>
 
 const char my_cert[]  = "FIXME";
@@ -89,14 +90,10 @@ void reconnect()
       Serial.print("Subcribed to: ");
       Serial.println(subTopic);
       
-      // This is a workaround to address https://github.com/OPEnSLab-OSU/SSLClient/issues/9
-      //ethClientSSL.flush();
       // ... and resubscribe
       client.subscribe(subTopic);
       // for loopback testing
       client.subscribe(TOPIC);
-      // This is a workaround to address https://github.com/OPEnSLab-OSU/SSLClient/issues/9
-      //ethClientSSL.flush();
     }
     else
     {
