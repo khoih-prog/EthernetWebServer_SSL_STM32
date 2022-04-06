@@ -102,6 +102,7 @@
     * [19. **MQTTS_ThingStream**](examples/MQTTS_ThingStream)
     * [20. **MQTT_ThingStream**](examples/MQTT_ThingStream)
     * [21. **AWS_IoT**](examples/AWS_IoT) **New**
+    * [22. multiFileProject](examples/multiFileProject) **New**
   * [HTTP and WebSocket Client New Examples](#http-and-websocket-client-new-examples)
     * [ 1. BasicAuthGet](examples/HTTPClient/BasicAuthGet)
     * [ 2. CustomHeader](examples/HTTPClient/CustomHeader)
@@ -129,15 +130,15 @@
 * [Debug Terminal Output Samples](#debug-terminal-output-samples)
   * [1. AdvancedWebServer on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#1-advancedwebserver-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
   * [2. WebClientRepeating on NUCLEO_F767ZI using ENC28J60 and new EthernetENC Library](#2-webclientrepeating-on-nucleo_f767zi-using-enc28j60-and-new-ethernetenc-library)
-  * [3. UdpNTPClient on NUCLEO_F767ZI using W5500 and Ethernet2 Library](#3-udpntpclient-on-nucleo_f767zi-using-w5500-and-ethernet2-library)
+  * [3. UdpNTPClient on NUCLEO_F767ZI using W5500 and Ethernet_Generic Library](#3-udpntpclient-on-nucleo_f767zi-using-w5500-and-Ethernet_Generic-library)
   * [4. WebClient_SSL on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#4-webclient_ssl-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
-  * [5. WebClient_SSL on NUCLEO_F767ZI using W5x00 and Ethernet3 Library](#5-webclient_ssl-on-nucleo_f767zi-using-w5x00-and-ethernet3-library)
+  * [5. WebClient_SSL on NUCLEO_F767ZI using W5x00 and Ethernet_Generic Library](#5-webclient_ssl-on-nucleo_f767zi-using-w5x00-and-Ethernet_Generic-library)
   * [6. WebClientMulti_SSL on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library](#6-webclientmulti_ssl-on-nucleo_f767zi-using-enc28j60-and-ethernetenc-library)
   * [7. MQTTClient_SSL_Complex on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#7-mqttclient_ssl_complex-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
-  * [8. MQTTClient_SSL_Complex on NUCLEO_F767ZI using W5x00 and Ethernet2 Library](#8-mqttclient_ssl_complex-on-nucleo_f767zi-using-w5x00-and-ethernet2-library)
+  * [8. MQTTClient_SSL_Complex on NUCLEO_F767ZI using W5x00 and Ethernet_Generic Library](#8-mqttclient_ssl_complex-on-nucleo_f767zi-using-w5x00-and-Ethernet_Generic-library)
   * [9. MQTTS_ThingStream on NUCLEO_F767ZI using Built-in LAN8742A Ethernet and STM32Ethernet Library](#9-mqtts_thingstream-on-nucleo_f767zi-using-built-in-lan8742a-ethernet-and-stm32ethernet-library)
   * [10. MQTTS_ThingStream on NUCLEO_F767ZI using ENC28J60 and EthernetENC Library](#10-mqtts_thingstream-on-nucleo_f767zi-using-enc28j60-and-ethernetenc-library)
-  * [11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet3 Library](#11-mqtts_thingstream-on-nucleo_f767zi-using-w5x00-and-ethernet3-library)
+  * [11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet_Generic Library](#11-mqtts_thingstream-on-nucleo_f767zi-using-w5x00-and-Ethernet_Generic-library)
   * [12. MQTTS_ThingStream_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#12-mqtts_thingstream_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
   * [13. WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#13-webclient_ssl_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
   * [14. MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Library](#14-mqttclient_ssl_lan8720-on-black_f407ve-with-lan8720-ethernet-and-stm32ethernet-library)
@@ -296,10 +297,7 @@ These boards are not supported:
    - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in LAN8742A Ethernet on (Nucleo-144, Discovery). [![GitHub release](https://img.shields.io/github/release/stm32duino/STM32Ethernet.svg)](https://github.com/stm32duino/STM32Ethernet/releases/latest)
    - [`LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP) for built-in LAN8742A Ethernet on (Nucleo-144, Discovery). [![GitHub release](https://img.shields.io/github/release/stm32duino/LwIP.svg)](https://github.com/stm32duino/LwIP/releases/latest)
  5. For W5x00 Ethernet:
-   - [`Ethernet library v2.0.0+`](https://github.com/arduino-libraries/Ethernet) for W5100, W5200 and W5500.  [![GitHub release](https://img.shields.io/github/release/arduino-libraries/Ethernet.svg)](https://github.com/arduino-libraries/Ethernet/releases/latest)
-   - [`EthernetLarge library v2.0.0+`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500.
-   - [`Ethernet2 library v1.0.4+`](https://github.com/khoih-prog/Ethernet2) for W5500. [![GitHub release](https://img.shields.io/github/release/adafruit/Ethernet2.svg)](https://github.com/adafruit/Ethernet2/releases/latest)
-   - [`Ethernet3 library v1.5.5+`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. [![GitHub release](https://img.shields.io/github/release/sstaub/Ethernet3.svg)](https://github.com/sstaub/Ethernet3/releases/latest)
+   - [`Ethernet_Generic library v2.0.0+`](https://github.com/khoih-prog/Ethernet_Generic) for W5100, W5200 and W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip.  [![GitHub release](https://img.shields.io/github/release/khoih-prog/Ethernet_Generic.svg)](https://github.com/khoih-prog/Ethernet_Generic/releases/latest)
  6. For ENC28J60 Ethernet:
    - [`EthernetENC library v2.0.2+`](https://github.com/jandrassy/EthernetENC) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/jandrassy/EthernetENC.svg)](https://github.com/jandrassy/EthernetENC/releases/latest). **New and Better**
    - [`UIPEthernet library v2.0.11+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/UIPEthernet/UIPEthernet.svg)](https://github.com/UIPEthernet/UIPEthernet/releases/latest)
@@ -438,9 +436,9 @@ Check if you need to install the UIPthernet patch [new STM32 core F3/F4 compatib
 
 #### Select **one and only one** Ethernet library to use as follows:
 
-- Standard W5x00 Ethernet library 
+- Standard W5x00 Ethernet_Generic library 
 
-Standard W5x00 using Ethernet library is used by default, in the sketch, just be sure to comment out or leave these #defines to be false :
+Standard W5x00 is using `Ethernet_Generic` library by default, in the sketch, just be sure to comment out or leave these #defines to be false :
 
 ```cpp
 #define USE_BUILTIN_ETHERNET    false
@@ -448,10 +446,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
+  #define USE_ETHERNET_GENERIC  true
   #define USE_ETHERNET_ESP8266  false
   #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   false
@@ -466,10 +461,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
+  #define USE_ETHERNET_GENERIC  false
   #define USE_ETHERNET_ESP8266  false
   #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   false
@@ -485,17 +477,14 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
+  #define USE_ETHERNET_GENERIC  false
   #define USE_ETHERNET_ESP8266  false
   #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   false
 #endif
 ```
 
-#### To use W5x00 Ethernet, for example using EthernetLarge library
+#### To use W5x00 Ethernet, for example using Ethernet_Generic library
 
 ```cpp
 #define USE_BUILTIN_ETHERNET    false
@@ -503,10 +492,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    true
+  #define USE_ETHERNET_GENERIC  true
   #define USE_ETHERNET_ESP8266  false
   #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   false
@@ -521,10 +507,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
+  #define USE_ETHERNET_GENERIC  false
   #define USE_ETHERNET_ESP8266  false
   #define USE_ETHERNET_ENC      true
   #define USE_CUSTOM_ETHERNET   false
@@ -539,28 +522,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
-  #define USE_ETHERNET_ESP8266  false
-  #define USE_ETHERNET_ENC      false
-  #define USE_CUSTOM_ETHERNET   false
-#endif
-```
-
-- To use any of the Ethernet libraries, such as Ethernet2, Ethernet3, EthernetLarge, EthernetENC:
-
-```cpp
-#define USE_BUILTIN_ETHERNET    false
-#define USE_UIP_ETHERNET        false
-
-#if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
-  // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         true
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
+  #define USE_ETHERNET_GENERIC  false
   #define USE_ETHERNET_ESP8266  false
   #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   false
@@ -568,7 +530,7 @@ Standard W5x00 using Ethernet library is used by default, in the sketch, just be
 ```
 
 - To use another Ethernet library
-For example, Ethernet_XYZ library uses **Ethernet_XYZ.h**
+For example, EthernetLarge library
 
 ```cpp
 #define USE_BUILTIN_ETHERNET    false
@@ -576,10 +538,7 @@ For example, Ethernet_XYZ library uses **Ethernet_XYZ.h**
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one of the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         false
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
+  #define USE_ETHERNET_GENERIC  false
   #define USE_ETHERNET_ESP8266  false
   #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   true
@@ -589,18 +548,19 @@ For example, Ethernet_XYZ library uses **Ethernet_XYZ.h**
 
 #elif USE_CUSTOM_ETHERNET
   //#include "Ethernet_XYZ.h"
-  #include "EthernetENC.h"
+  #include "EthernetLarge.h"
   #warning Using Custom Ethernet library. You must include a library and initialize.
   #define SHIELD_TYPE           "Custom Ethernet & Ethernet_XYZ Library"
 #else
-  #define USE_ETHERNET          true
-  #include "Ethernet.h"
-  #warning Using Ethernet lib
-  #define SHIELD_TYPE           "W5x00 & Ethernet Library"
+  #define USE_ETHERNET_GENERIC   true
+  #include "Ethernet_Generic.h"
+  #warning Using default Ethernet_Generic lib
+  #define SHIELD_TYPE           "W5x00 using default Ethernet_Generic Library"
 #endif  
 ...
 
-#include <EthernetWebServer.h>
+
+#include <EthernetWebServer_SSL_STM32.h>
 ```
 
 ---
@@ -640,19 +600,25 @@ Increase debug level to 2 in `defines.h` of any example:
 The Debug Terminal will then show that the current SPI pin usage of **NUCLEO_F767ZI ==> SS/CS: D10, MOSI: D11, MISO: D12 and SCK: D13**
 
 ```
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
+Connected! IP address: 192.168.2.89
 ```
 
 Connect the wires according to the displayed information.
 
 
 ### 3. How to increase W5x00 TX/RX buffer
+
+- For **Ethernet_Generic** library only,  simply use as follows to have large buffer similar to EthernetLarge library
+```
+#define ETHERNET_LARGE_BUFFERS
+```
 
 - For **Ethernet3** library only,  use as follows
 
@@ -1198,6 +1164,7 @@ Connect FDTI (USB to Serial) as follows:
 19. [**MQTTS_ThingStream**](examples/MQTTS_ThingStream)
 20. [**MQTT_ThingStream**](examples/MQTT_ThingStream)
 21. [**AWS_IoT**](examples/AWS_IoT) **New**
+22. [multiFileProject](examples/multiFileProject) **New**
 
 #### HTTP and WebSocket Client New Examples
 
@@ -1233,12 +1200,12 @@ Connect FDTI (USB to Serial) as follows:
 
 #### 1. File [AdvancedWebServer.ino](examples/AdvancedWebServer/AdvancedWebServer.ino)
 
-https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/d02c5110fc59735ba2bbb56c975b2a5644dc36c7/examples/AdvancedWebServer/AdvancedWebServer.ino#L52-L260
+https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/22a1e3a5c77530f6c037a53afc66aaf1266f0d6a/examples/AdvancedWebServer/AdvancedWebServer.ino#L40-L254
 
 
 #### 2. File [defines.h](examples/AdvancedWebServer/defines.h)
 
-https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/d02c5110fc59735ba2bbb56c975b2a5644dc36c7/examples/AdvancedWebServer/defines.h#L14-L181
+https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/22a1e3a5c77530f6c037a53afc66aaf1266f0d6a/examples/AdvancedWebServer/defines.h#L13-L174
 
 
 ---
@@ -1256,7 +1223,7 @@ Following is debug terminal output and screen shot when running example [Advance
 
 ```
 Start AdvancedWebServer on NUCLEO_F767ZI, using LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
+EthernetWebServer_SSL_STM32 v1.5.0
 HTTP EthernetWebServer is @ IP : 192.168.2.117
 .[EWS] String Len = 0, extend to 2048
 EthernetWebServer::handleClient: New Client
@@ -1381,14 +1348,14 @@ The following is debug terminal output when running example [WebClientRepeating]
 
 ```
 Start WebClientRepeating on NUCLEO_F767ZI, using ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
 You're connected to the network, IP = 192.168.2.123
 
 Connecting...
@@ -1450,20 +1417,20 @@ Disconnecting from server...
 
 ---
 
-#### 3. UdpNTPClient on NUCLEO_F767ZI using W5500 and Ethernet2 Library
+#### 3. UdpNTPClient on NUCLEO_F767ZI using W5500 and Ethernet_Generic Library
 
-3. The following is debug terminal output when running example [UdpNTPClient](examples/UdpNTPClient) on STM32F7 Nucleo-144 NUCLEO_F767ZI using **W5500 and Ethernet2 Library**
+3. The following is debug terminal output when running example [UdpNTPClient](examples/UdpNTPClient) on STM32F7 Nucleo-144 NUCLEO_F767ZI using **W5500 and Ethernet_Generic Library**
 
 ```
-Start UdpNTPClient on NUCLEO_F767ZI, using W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
+Start UdpNTPClient on NUCLEO_F767ZI, using W5x00 & Ethernet_Generic Library
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
 You're connected to the network, IP = 192.168.2.123
 UDP Packet received, size 48
 From 132.163.97.1, port 123
@@ -1480,15 +1447,15 @@ The UTC time is 22:20:21
 
 ```
 Start WebClient_SSL on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] =========================
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] =========================
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
 =========================
 Currently Used SPI pinout:
 MOSI:11
@@ -1579,23 +1546,21 @@ Received 3324 bytes in 0.5398 s, rate = 6.16 kbytes/second
 
 ---
 
-#### 5. WebClient_SSL on NUCLEO_F767ZI using W5x00 and Ethernet3 Library
+#### 5. WebClient_SSL on NUCLEO_F767ZI using W5x00 and Ethernet_Generic Library
 
-The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running [WebClient_SSL example](examples/WebClient_SSL)
+The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library** running [WebClient_SSL example](examples/WebClient_SSL)
 
 ```
-Start WebClient_SSL on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] =========== USE_ETHERNET3 ===========
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-
-Ethernet3 W5500 init, using SPI_CS = 10, number of sockets = 4
+Start WebClient_SSL on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] =========== USE_ETHERNET_GENERIC ===========
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
 =========================
 Currently Used SPI pinout:
 MOSI:11
@@ -1689,15 +1654,15 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start WebClientMulti_SSL on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] =========================
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] =========================
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
 =========================
 Currently Used SPI pinout:
 MOSI:11
@@ -1825,14 +1790,14 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
 You're connected to the network, IP = 192.168.2.96
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -1853,20 +1818,20 @@ Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, 
 
 ---
 
-#### 8. MQTTClient_SSL_Complex on NUCLEO_F767ZI using W5x00 and Ethernet2 Library
+#### 8. MQTTClient_SSL_Complex on NUCLEO_F767ZI using W5x00 and Ethernet_Generic Library
 
-The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet2 Library** running [MQTTClient_SSL_Complex example](examples/MQTTClient_SSL_Complex)
+The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library** running [MQTTClient_SSL_Complex example](examples/MQTTClient_SSL_Complex)
 
 ```
-Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with W5x00 & Ethernet2 Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
+Start MQTTClient_SSL_Complex on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
 You're connected to the network, IP = 192.168.2.107
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -1891,14 +1856,14 @@ The terminal output of **NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Li
 
 ```
 Start MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
 You're connected to the network, IP = 192.168.2.97
 ***************************************
 esp32-sniffer/12345678/ble
@@ -1925,14 +1890,14 @@ The terminal output of **NUCLEO_F767ZI with ENC28J60 & EthernetENC Library** run
 
 ```
 Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
 You're connected to the network, IP = 192.168.2.97
 ***************************************
 esp32-sniffer/12345678/ble
@@ -1951,22 +1916,20 @@ MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_T
 
 ---
 
-#### 11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet3 Library
+#### 11. MQTTS_ThingStream on NUCLEO_F767ZI using W5x00 and Ethernet_Generic Library
 
-The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet3 Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
+The terminal output of **NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library** running [MQTTS_ThingStream example](examples/MQTTS_ThingStream)
 
 ```
-Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-EthernetWebServer_SSL_STM32 v1.4.5
-[ETHERNET_WEBSERVER] Board : NUCLEO_F767ZI , setCsPin: 10
-[ETHERNET_WEBSERVER] Default SPI pinout:
-[ETHERNET_WEBSERVER] MOSI: 11
-[ETHERNET_WEBSERVER] MISO: 12
-[ETHERNET_WEBSERVER] SCK: 13
-[ETHERNET_WEBSERVER] SS: 10
-[ETHERNET_WEBSERVER] =========================
-
-Ethernet3 W5500 init, using SPI_CS = 10, number of sockets = 4
+Start MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+EthernetWebServer_SSL_STM32 v1.5.0
+[EWS] Board : NUCLEO_F767ZI , setCsPin: 10
+[EWS] Default SPI pinout:
+[EWS] MOSI: 11
+[EWS] MISO: 12
+[EWS] SCK: 13
+[EWS] SS: 10
+[EWS] =========================
 You're connected to the network, IP = 192.168.2.107
 ***************************************
 esp32-sniffer/12345678/ble
@@ -1975,12 +1938,12 @@ Attempting MQTT connection to mqtt.thingstream.io
 ...connected
 Published connection message successfully!
 Subcribed to: esp32-sniffer/12345678/ble
-MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
-MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet3 Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
+MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
 ```
 
 ---
@@ -1991,7 +1954,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTS_ThingStream_ThingStream on on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
+EthernetWebServer_SSL_STM32 v1.5.0
 You're connected to the network, IP = 192.168.2.107
 ***************************************
 esp32-sniffer/12345678/ble
@@ -2015,7 +1978,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start WebClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
+EthernetWebServer_SSL_STM32 v1.5.0
 Using mac index = 6
 Connected! IP address: 192.168.2.138
 Connecting to : www.arduino.cc, port : 443
@@ -2097,7 +2060,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
+EthernetWebServer_SSL_STM32 v1.5.0
 You're connected to the network, IP = 192.168.2.138
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -2121,7 +2084,7 @@ The terminal output of **BLACK_F407VE with LAN8720 Ethernet and STM32Ethernet Li
 
 ```
 Start MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
-EthernetWebServer_SSL_STM32 v1.4.5
+EthernetWebServer_SSL_STM32 v1.5.0
 You're connected to the network, IP = 192.168.2.142
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
@@ -2180,7 +2143,6 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 1. Bug Searching and Killing
 2. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
 3. Add mDNS features.
-4. Use AsyncTCP features from [Phil Bowles' STM32AsyncTCP](https://github.com/philbowles/STM32AsyncTCP).
 
 
 ### DONE
@@ -2199,7 +2161,8 @@ Submit issues to: [EthernetWebServer_SSL_STM32 issues](https://github.com/khoih-
 12. Fix authenticate issue and compiler warnings caused by libb64
 13. Change licence from `MIT` to `GPLv3`
 14. Sync with [SSLClient v1.6.11](https://github.com/OPEnSLab-OSU/SSLClient/releases/tag/v1.6.11)
-
+15. Use new [**Ethernet_Generic** library](https://github.com/khoih-prog/Ethernet_Generic) as default for W5x00.
+16. Rewrite library and add example [multiFileProject](examples/multiFileProject) to demo for multiple-file project to fix `multiple-definitions` linker error
  
 ---
 

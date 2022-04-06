@@ -11,6 +11,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Releases v1.5.0](#releases-v150)
   * [Releases v1.4.5](#releases-v145)
   * [Releases v1.4.4](#releases-v144)
   * [Releases v1.4.3](#releases-v143)
@@ -29,6 +30,12 @@
 ---
 
 ## Changelog
+
+### Releases v1.5.0
+
+1. Use new [Ethernet_Generic library](https://github.com/khoih-prog/Ethernet_Generic) as default for W5x00.
+2. Rewrite all the examples to support new features
+3. Add example [multiFileProject](examples/multiFileProject) to demo how to avoid `multiple-definitions` linker error for multiple-file project
 
 ### Releases v1.4.5
 
