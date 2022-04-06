@@ -9,7 +9,7 @@
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
   
-  Version: 1.4.5
+  Version: 1.5.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -22,18 +22,58 @@
   1.4.3   K Hoang      02/03/2022 Fix decoding error bug
   1.4.4   K Hoang      19/03/2022 Change licence from `MIT` to `GPLv3`
   1.4.5   K Hoang      29/03/2022 Sync with `SSLClient` v1.6.11
+  1.5.0   K Hoang      05/04/2022 Use Ethernet_Generic library as default.
  ****************************************************************************************************************************/
 
 #pragma once
 
+#ifndef ETHERNET_WEBSERVER_SSL_STM32_IMPL_H
+#define ETHERNET_WEBSERVER_SSL_STM32_IMPL_H
+
 #include <Arduino.h>
 #include <libb64/cencode.h>
-//#include "EthernetWebServer_SSL_STM32.h"
+#include "EthernetWebServer_SSL_STM32.hpp"
 #include "detail/RequestHandlersImpl_STM32.h"
 #include "detail/Debug_STM32.h"
 #include "detail/mimetable.h"
 
+#include "SSLClient/SSLClient_Impl.h"
+
+
 const char * AUTHORIZATION_HEADER = "Authorization";
+
+// New to use EWString
+
+/////////////////////////////////////////////////////////////////////////
+
+EWString fromString(const String& str)
+{
+  return str.c_str();
+}
+
+/////////////////////////////////////////////////////////////////////////
+
+EWString fromString(const String&& str)
+{
+  return str.c_str();
+}
+
+/////////////////////////////////////////////////////////////////////////
+
+String fromEWString(const EWString& str)
+{
+  return str.c_str();
+}
+
+/////////////////////////////////////////////////////////////////////////
+
+String fromEWString(const EWString&& str)
+{
+  return str.c_str();
+}
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 EthernetWebServer::EthernetWebServer(int port)
   : _server(port)
@@ -926,3 +966,4 @@ String EthernetWebServer::_responseCodeToString(int code)
   }
 }
 
+#endif  // ETHERNET_WEBSERVER_SSL_STM32_IMPL_H

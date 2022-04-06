@@ -9,7 +9,7 @@
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
   
-  Version: 1.4.5
+  Version: 1.5.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -22,12 +22,16 @@
   1.4.3   K Hoang      02/03/2022 Fix decoding error bug
   1.4.4   K Hoang      19/03/2022 Change licence from `MIT` to `GPLv3`
   1.4.5   K Hoang      29/03/2022 Sync with `SSLClient` v1.6.11
+  1.5.0   K Hoang      05/04/2022 Use Ethernet_Generic library as default.
  ****************************************************************************************************************************/
  
 // (c) Copyright Arduino. 2016
 // Released under Apache License, version 2.0
 
 #pragma once
+
+#ifndef ETHERNET_WEBSOCKET_CLIENT_H
+#define ETHERNET_WEBSOCKET_CLIENT_H
 
 #include <Arduino.h>
 
@@ -124,3 +128,4 @@ class EthernetWebSocketClient : public EthernetHttpClient
     uint8_t   iRxMaskKey[4];
 };
 
+#endif  // ETHERNET_WEBSOCKET_CLIENT_H
