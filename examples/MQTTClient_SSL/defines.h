@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
   defines.h
-  
+
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
   
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
@@ -8,7 +8,7 @@
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
   
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
- *****************************************************************************************************************************/
+ ***************************************************************************************************************************************/
 
 #ifndef defines_h
 #define defines_h
@@ -23,8 +23,6 @@
 
 // Debug Level from 0 to 4
 #define _ETHERNET_WEBSERVER_LOGLEVEL_       2
-
-#define SSLCLIENT_DEBUG_LEVEL               0
 
 // If USE_BUILTIN_ETHERNET == false and USE_UIP_ETHERNET == false => 
 // either use W5x00 with EthernetXYZ library
@@ -43,16 +41,13 @@
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // Only one if the following to be true
-  #define USE_ETHERNET          false
-  #define USE_ETHERNET2         true
-  #define USE_ETHERNET3         false
-  #define USE_ETHERNET_LARGE    false
-  #define USE_ETHERNET_ESP8266  false
+  #define USE_ETHERNET_GENERIC  true
+  #define USE_ETHERNET_ESP8266  false 
   #define USE_ETHERNET_ENC      false
   #define USE_CUSTOM_ETHERNET   false
 #endif
 
-#if ( USE_ETHERNET2 || USE_ETHERNET3 || USE_ETHERNET_LARGE || USE_ETHERNET_ESP8266 || USE_ETHERNET_ENC )
+#if ( USE_ETHERNET_GENERIC || USE_ETHERNET_ESP8266 || USE_ETHERNET_ENC )
   #ifdef USE_CUSTOM_ETHERNET
     #undef USE_CUSTOM_ETHERNET
   #endif
@@ -65,18 +60,15 @@
 #elif (USE_UIP_ETHERNET)
   #warning Using ENC28J60 & UIPEthernet lib
   #define SHIELD_TYPE           "ENC28J60 & UIPEthernet Library"
-#elif USE_ETHERNET3
-  #include "Ethernet3.h"
-  #warning Using W5x00 & Ethernet3 lib
-  #define SHIELD_TYPE           "W5x00 & Ethernet3 Library"
-#elif USE_ETHERNET2
-  #include "Ethernet2.h"
-  #warning Using W5x00 & Ethernet2 lib
-  #define SHIELD_TYPE           "W5x00 & Ethernet2 Library"
-#elif USE_ETHERNET_LARGE
-  #include "EthernetLarge.h"
-  #warning Using W5x00 & EthernetLarge lib
-  #define SHIELD_TYPE           "W5x00 & EthernetLarge Library"
+#elif USE_ETHERNET_GENERIC
+  #include "Ethernet_Generic.h"
+
+  #define ETHERNET_LARGE_BUFFERS
+
+  #define _ETG_LOGLEVEL_                      1
+      
+  #warning Using W5x00 & Ethernet_Generic lib
+  #define SHIELD_TYPE           "W5x00 using Ethernet_Generic Library"  
 #elif USE_ETHERNET_ESP8266
   #include "Ethernet_ESP8266.h"
   #warning Using W5x00 & Ethernet_ESP8266 lib 
@@ -87,14 +79,14 @@
   #define SHIELD_TYPE           "ENC28J60 & EthernetENC Library"
 #elif USE_CUSTOM_ETHERNET
   //#include "Ethernet_XYZ.h"
-  #include "EthernetENC.h"
+  #include "Ethernet.h"
   #warning Using Custom Ethernet library. You must include a library and initialize.
   #define SHIELD_TYPE           "Custom Ethernet & Ethernet_XYZ Library"
 #else
-  #define USE_ETHERNET          true
-  #include "Ethernet.h"
-  #warning Using Ethernet lib
-  #define SHIELD_TYPE           "W5x00 & Ethernet Library"
+   #define USE_ETHERNET_GENERIC   true
+  #include "Ethernet_Generic.h"
+  #warning Using default Ethernet_Generic lib
+  #define SHIELD_TYPE           "W5x00 using default Ethernet_Generic Library"
 #endif
 
 #if defined(STM32F0)
