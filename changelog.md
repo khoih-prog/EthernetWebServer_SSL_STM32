@@ -11,6 +11,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Releases v1.5.1](#releases-v151)
   * [Releases v1.5.0](#releases-v150)
   * [Releases v1.4.5](#releases-v145)
   * [Releases v1.4.4](#releases-v144)
@@ -30,6 +31,11 @@
 ---
 
 ## Changelog
+
+### Releases v1.5.1
+
+1. Change from `arduino.cc` to `arduino.tips` in HTTP examples
+2. Add `lib_ldf_mode = chain+` in `platformio.ini`
 
 ### Releases v1.5.0
 
