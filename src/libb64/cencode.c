@@ -8,9 +8,9 @@
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
   
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
-  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
+  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   
-  Version: 1.5.1
+  Version: 1.6.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -25,6 +25,7 @@
   1.4.5   K Hoang      29/03/2022 Sync with `SSLClient` v1.6.11
   1.5.0   K Hoang      05/04/2022 Use Ethernet_Generic library as default
   1.5.1   K Hoang      27/04/2022 Change from `arduino.cc` to `arduino.tips` in examples
+  1.6.0   K Hoang      03/05/2022 Add support to STM32L5 and to custom SPI, such as SPI2, SPI3, SPI_New, etc.
  ****************************************************************************************************************************/
  
 #include "cencode.h"

@@ -2,12 +2,12 @@
   EthernetHttpClient_SSL_STM32.h - Dead simple HTTP WebClient.
   For STM32 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
 
-  EthernetWebServer_STM32 is a library for the STM32 running Ethernet WebServer
+  EthernetWebServer_SSL_STM32 is a library for the STM32 running Ethernet WebServer
 
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
-  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_STM32
+  Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
   
-  Version: 1.5.1
+  Version: 1.6.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -22,6 +22,7 @@
   1.4.5   K Hoang      29/03/2022 Sync with `SSLClient` v1.6.11
   1.5.0   K Hoang      05/04/2022 Use Ethernet_Generic library as default
   1.5.1   K Hoang      27/04/2022 Change from `arduino.cc` to `arduino.tips` in examples
+  1.6.0   K Hoang      03/05/2022 Add support to STM32L5 and to custom SPI, such as SPI2, SPI3, SPI_New, etc.
  ****************************************************************************************************************************/
 
 // Library to simplify HTTP fetching on Arduino
