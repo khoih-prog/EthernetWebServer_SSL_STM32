@@ -2174,7 +2174,7 @@ Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F
 Following is debug terminal output and screen shot when running example [AdvancedWebServer](examples/AdvancedWebServer) on NUCLEO_L552ZE_Q, using W5500 Ethernet with Ethernet_Generic Library and custom SPI
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/master/pics/AdvancedWebServer_NUCLEO_L552ZE_Q.png">
+    <img src="https://github.com/khoih-prog/EthernetWebServer_SSL_STM32/blob/main/pics/AdvancedWebServer_NUCLEO_L552ZE_Q.png">
 </p>
 
 
