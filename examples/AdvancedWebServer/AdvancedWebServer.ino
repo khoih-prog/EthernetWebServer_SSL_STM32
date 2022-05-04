@@ -78,7 +78,7 @@ body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Col
 </style>\
 </head>\
 <body>\
-<h2>Hi from EthernetWebServer!</h2>\
+<h2>Hi from EthernetWebServer_SSL_STM32!</h2>\
 <h3>on %s</h3>\
 <p>Uptime: %d d %02d:%02d:%02d</p>\
 <img src=\"/test.svg\" />\
@@ -164,18 +164,34 @@ void setup()
   digitalWrite(led, 0);
 
   Serial.begin(115200);
-  Serial.println("\nStart AdvancedWebServer on " + String(BOARD_NAME) + ", using " + String(SHIELD_TYPE));
+  while (!Serial && millis() < 5000);
+  
+  Serial.println("\nStart AdvancedWebServer on " + String(BOARD_NAME) + " with " + String(SHIELD_TYPE));
+
+#if USE_ETHERNET_GENERIC
+  Serial.println(ETHERNET_GENERIC_VERSION);
+#endif
+  
   Serial.println(ETHERNET_WEBSERVER_SSL_STM32_VERSION);
 
 #if !(USE_BUILTIN_ETHERNET)
-  ET_LOGWARN3(F("Board :"), BOARD_NAME, F(", setCsPin:"), USE_THIS_SS_PIN);
-
-  ET_LOGWARN(F("Default SPI pinout:"));
-  ET_LOGWARN1(F("MOSI:"), MOSI);
-  ET_LOGWARN1(F("MISO:"), MISO);
-  ET_LOGWARN1(F("SCK:"),  SCK);
-  ET_LOGWARN1(F("SS:"),   SS);
-  ET_LOGWARN(F("========================="));
+  #if (USING_SPI2)
+    #if defined(CUR_PIN_MISO)
+      ET_LOGWARN(F("Default SPI pinout:"));
+      ET_LOGWARN1(F("MOSI:"), CUR_PIN_MOSI);
+      ET_LOGWARN1(F("MISO:"), CUR_PIN_MISO);
+      ET_LOGWARN1(F("SCK:"),  CUR_PIN_SCK);
+      ET_LOGWARN1(F("SS:"),   CUR_PIN_SS);
+      ET_LOGWARN(F("========================="));
+    #endif
+  #else
+    ET_LOGWARN(F("Default SPI pinout:"));
+    ET_LOGWARN1(F("MOSI:"), MOSI);
+    ET_LOGWARN1(F("MISO:"), MISO);
+    ET_LOGWARN1(F("SCK:"),  SCK);
+    ET_LOGWARN1(F("SS:"),   SS);
+    ET_LOGWARN(F("========================="));
+  #endif
 #endif
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)

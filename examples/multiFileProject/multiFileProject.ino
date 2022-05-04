@@ -11,8 +11,8 @@
 
 // To demo how to include files in multi-file Projects
 
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MIN_TARGET      "EthernetWebServer_SSL_STM32 v1.5.0"
-#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MIN             1005000
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MIN_TARGET      "EthernetWebServer_SSL_STM32 v1.6.0"
+#define ETHERNET_WEBSERVER_SSL_STM32_VERSION_MIN             1006000
 
 #include "multiFileProject.h"
 
@@ -22,7 +22,7 @@
 void setup() 
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   delay(500);
   
