@@ -352,7 +352,7 @@ Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into
 - `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
-theses files must be copied into the corresponding directory:
+these files must be copied into the corresponding directory:
 
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F4xx/stm32f4xx_hal_conf_default.h`
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F7xx/stm32f7xx_hal_conf_default.h`
@@ -368,7 +368,7 @@ Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into
 - `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
-theses files must be copied into the corresponding directory:
+these files must be copied into the corresponding directory:
 
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT/NUCLEO_F767ZI/variant.h`
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h`
@@ -631,7 +631,7 @@ To use SPI2 or any custom SPI
 
 **The default CS/SS pin is 10 for all boards, and is configurable in code.**
 
-If the default pin is not corect, select another CS/SS pin (e.e. D22) to use as follows:
+If the default pin is not correct, select another CS/SS pin (e.e. D22) to use as follows:
 
 ```cpp
 // To override the default CS/SS pin. Don't use unless you know exactly which pin to use
@@ -1863,7 +1863,7 @@ EthernetWebServer_SSL_STM32 v1.6.0
 You're connected to the network, IP = 192.168.2.96
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
-Subcribed to: STM32_Sub
+Subscribed to: STM32_Sub
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, millis = 6990
 Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, millis = 6990
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, millis = 11992
@@ -1898,7 +1898,7 @@ EthernetWebServer_SSL_STM32 v1.6.0
 You're connected to the network, IP = 192.168.2.107
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
-Subcribed to: STM32_Sub
+Subscribed to: STM32_Sub
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, millis = 5001
 Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, millis = 5001
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex on NUCLEO_F767ZI, millis = 10007
@@ -1934,7 +1934,7 @@ esp32-sniffer/12345678/ble
 Attempting MQTT connection to mqtt.thingstream.io
 ...connected
 Published connection message successfully!
-Subcribed to: esp32-sniffer/12345678/ble
+Subscribed to: esp32-sniffer/12345678/ble
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
 MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with LAN8742A Ethernet & STM32Ethernet Library
@@ -1968,7 +1968,7 @@ esp32-sniffer/12345678/ble
 Attempting MQTT connection to mqtt.thingstream.io
 ...connected
 Published connection message successfully!
-Subcribed to: esp32-sniffer/12345678/ble
+Subscribed to: esp32-sniffer/12345678/ble
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
 MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream_ThingStream on NUCLEO_F767ZI with ENC28J60 & EthernetENC Library
@@ -2001,7 +2001,7 @@ esp32-sniffer/12345678/ble
 Attempting MQTT connection to mqtt.thingstream.io
 ...connected
 Published connection message successfully!
-Subcribed to: esp32-sniffer/12345678/ble
+Subscribed to: esp32-sniffer/12345678/ble
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
 MQTT Message receive [esp32-sniffer/12345678/ble] Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on NUCLEO_F767ZI with W5x00 & Ethernet_Generic Library
@@ -2026,7 +2026,7 @@ esp32-sniffer/12345678/ble
 Attempting MQTT connection to mqtt.thingstream.io
 ...connected
 Published connection message successfully!
-Subcribed to: esp32-sniffer/12345678/ble
+Subscribed to: esp32-sniffer/12345678/ble
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
 MQTT Message Send : esp32-sniffer/12345678/ble => Hello from MQTTS_ThingStream on BLACK_F407VE with LAN8720 Ethernet & STM32Ethernet Library
@@ -2128,7 +2128,7 @@ EthernetWebServer_SSL_STM32 v1.6.0
 You're connected to the network, IP = 192.168.2.138
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
-Subcribed to: STM32_Sub
+Subscribed to: STM32_Sub
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
 Message arrived [STM32_Pub] Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_LAN8720 on BLACK_F407VE
@@ -2152,7 +2152,7 @@ EthernetWebServer_SSL_STM32 v1.6.0
 You're connected to the network, IP = 192.168.2.142
 Attempting MQTT connection to broker.emqx.io...connected
 Published connection message successfully!
-Subcribed to: STM32_Sub
+Subscribed to: STM32_Sub
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 6546
 Message arrived [STM32_Pub] Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 6546
 Message Send : STM32_Pub => Hello from MQTTClient_SSL_Complex_LAN8720 on BLACK_F407VE, millis = 11549
