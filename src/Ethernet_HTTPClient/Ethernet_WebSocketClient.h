@@ -1,20 +1,20 @@
 /****************************************************************************************************************************
   Ethernet_WebSocketClient.h - Dead simple HTTP WebSockets Client.
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
-  
+
   Version: 1.6.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A, 
-                                  W5x00 using Ethernetx, ENC28J60 using EthernetENC and UIPEthernet libraries   
+  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A,
+                                  W5x00 using Ethernetx, ENC28J60 using EthernetENC and UIPEthernet libraries
   ...
   1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
   1.4.1   K Hoang      27/12/2021 Fix wrong http status header bug and authenticate issue caused by libb64
@@ -26,7 +26,7 @@
   1.5.1   K Hoang      27/04/2022 Change from `arduino.cc` to `arduino.tips` in examples
   1.6.0   K Hoang      03/05/2022 Add support to STM32L5 and to custom SPI, such as SPI2, SPI3, SPI_New, etc.
  ****************************************************************************************************************************/
- 
+
 // (c) Copyright Arduino. 2016
 // Released under Apache License, version 2.0
 
@@ -52,8 +52,10 @@ class EthernetWebSocketClient : public EthernetHttpClient
 {
   public:
     EthernetWebSocketClient(Client& aClient, const char* aServerName, uint16_t aServerPort = EthernetHttpClient::kHttpPort);
-    EthernetWebSocketClient(Client& aClient, const String& aServerName, uint16_t aServerPort = EthernetHttpClient::kHttpPort);
-    EthernetWebSocketClient(Client& aClient, const IPAddress& aServerAddress, uint16_t aServerPort = EthernetHttpClient::kHttpPort);
+    EthernetWebSocketClient(Client& aClient, const String& aServerName,
+                            uint16_t aServerPort = EthernetHttpClient::kHttpPort);
+    EthernetWebSocketClient(Client& aClient, const IPAddress& aServerAddress,
+                            uint16_t aServerPort = EthernetHttpClient::kHttpPort);
 
     /** Start the Web Socket connection to the specified path
       @param aURLPath     Path to use in request (optional, "/" is used by default)
@@ -104,7 +106,7 @@ class EthernetWebSocketClient : public EthernetHttpClient
     // Inherited from Print
     virtual size_t write(uint8_t aByte);
     virtual size_t write(const uint8_t *aBuffer, size_t aSize);
-    
+
     // Inherited from Stream
     virtual int   available();
     /** Read the next byte from the server.

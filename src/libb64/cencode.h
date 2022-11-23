@@ -2,13 +2,13 @@
   cencoder.h - c source to a base64 decoding algorithm implementation
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
-  
+
  ****************************************************************************************************************************/
 
 #pragma once
@@ -24,12 +24,12 @@
 extern "C" {
 #endif
 
-typedef enum 
+typedef enum
 {
   step_A, step_B, step_C
 } base64_encodestep;
 
-typedef struct 
+typedef struct
 {
   base64_encodestep step;
   char result;

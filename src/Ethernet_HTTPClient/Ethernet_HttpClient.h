@@ -1,20 +1,20 @@
 /****************************************************************************************************************************
   Ethernet_HttpClient.h - Dead simple HTTP WebClient.
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
-  
+
   Version: 1.6.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A, 
-                                  W5x00 using Ethernetx, ENC28J60 using EthernetENC and UIPEthernet libraries   
+  1.1.0   K Hoang      14/11/2020 Initial coding for STM32F/L/H/G/WB/MP1 to support Ethernet shields using SSL. Supporting BI LAN8742A,
+                                  W5x00 using Ethernetx, ENC28J60 using EthernetENC and UIPEthernet libraries
   ...
   1.4.0   K Hoang      25/12/2021 Reduce usage of Arduino String with std::string. Fix bug
   1.4.1   K Hoang      27/12/2021 Fix wrong http status header bug and authenticate issue caused by libb64
@@ -317,13 +317,13 @@ class EthernetHttpClient : public Client
       @return true if we are now at the end of the body, else false
     */
     bool endOfBodyReached();
-    
-    virtual bool endOfStream() 
+
+    virtual bool endOfStream()
     {
       return endOfBodyReached();
     };
-    
-    virtual bool completed() 
+
+    virtual bool completed()
     {
       return endOfBodyReached();
     };
@@ -339,7 +339,7 @@ class EthernetHttpClient : public Client
     /** Returns if the response body is chunked
       @return true if response body is chunked, false otherwise
     */
-    int isResponseChunked() 
+    int isResponseChunked()
     {
       return iIsChunked;
     }
@@ -362,77 +362,78 @@ class EthernetHttpClient : public Client
     // Inherited from Print
     // Note: 1st call to these indicates the user is sending the body, so if need
     // Note: be we should finish the header first
-    virtual size_t write(uint8_t aByte) 
+    virtual size_t write(uint8_t aByte)
     {
-      if (iState < eRequestSent) 
+      if (iState < eRequestSent)
       {
         finishHeaders();
       };
-      
+
       return iClient-> write(aByte);
     };
-    
-    virtual size_t write(const uint8_t *aBuffer, size_t aSize) 
+
+    virtual size_t write(const uint8_t *aBuffer, size_t aSize)
     {
-      if (iState < eRequestSent) 
+      if (iState < eRequestSent)
       {
         finishHeaders();
       };
+
       return iClient->write(aBuffer, aSize);
     };
-    
+
     // Inherited from Stream
     virtual int available();
-    
+
     /** Read the next byte from the server.
       @return Byte read or -1 if there are no bytes available.
     */
     virtual int read();
     virtual int read(uint8_t *buf, size_t size);
-    
-    virtual int peek() 
+
+    virtual int peek()
     {
       return iClient->peek();
     };
-    
-    virtual void flush() 
+
+    virtual void flush()
     {
       iClient->flush();
     };
 
     // Inherited from Client
-    virtual int connect(IPAddress ip, uint16_t port) 
+    virtual int connect(IPAddress ip, uint16_t port)
     {
       return iClient->connect(ip, port);
     };
-    
-    virtual int connect(const char *host, uint16_t port) 
+
+    virtual int connect(const char *host, uint16_t port)
     {
       return iClient->connect(host, port);
     };
-    
+
     virtual void stop();
-    
-    virtual uint8_t connected() 
+
+    virtual uint8_t connected()
     {
       return iClient->connected();
     };
-    
-    virtual operator bool() 
+
+    virtual operator bool()
     {
       return bool(iClient);
     };
-    
-    virtual uint32_t httpResponseTimeout() 
+
+    virtual uint32_t httpResponseTimeout()
     {
       return iHttpResponseTimeout;
     };
-    
-    virtual void setHttpResponseTimeout(uint32_t timeout) 
+
+    virtual void setHttpResponseTimeout(uint32_t timeout)
     {
       iHttpResponseTimeout = timeout;
     };
-    
+
   protected:
     /** Reset internal state data back to the "just initialised" state
     */
@@ -453,10 +454,10 @@ class EthernetHttpClient : public Client
     /** Reading any pending data from the client (used in connection keep alive mode)
     */
     void flushClientRx();
-   
+
     static const char* kContentLengthPrefix;
     static const char* kTransferEncodingChunked;
-    
+
     typedef enum
     {
       eIdle,
