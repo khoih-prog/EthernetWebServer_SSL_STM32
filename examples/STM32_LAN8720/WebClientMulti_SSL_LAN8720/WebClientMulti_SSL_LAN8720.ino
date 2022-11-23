@@ -2,11 +2,11 @@
   WebClientMulti_SSL_LAN8720.ino - Dead simple SSL WebClient for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
  *****************************************************************************************************************************/
 
@@ -41,13 +41,13 @@ unsigned long loopCount = 0;
 bool printWebData = true;  // set to false for better speed measurement
 
 
-void connectSSL() 
+void connectSSL()
 {
   static bool r = true;
   // cycle the server we want to connect to back and forth
   char* server;
   char* query;
-  
+
   if (r)
   {
     server  = server1;
@@ -58,7 +58,7 @@ void connectSSL()
     server  = server2;
     query   = query2;
   }
-    
+
   r = !r;
 
   Serial.print("Connecting to ");
@@ -67,29 +67,29 @@ void connectSSL()
 
   // if you get a connection, report back via serial:
   auto start = millis();
-  
-  if (sslClient.connect(server, server_port)) 
+
+  if (sslClient.connect(server, server_port))
   {
     auto time = millis() - start;
-    
+
     Serial.print("Took: ");
     Serial.println(time);
-    
+
     // Make a HTTP request:
-    sslClient.println(query);     
+    sslClient.println(query);
     sslClient.println("User-Agent: SSLClientOverEthernet");
     sslClient.print("Host: ");
     sslClient.println(server);
     sslClient.println("Connection: close");
     sslClient.println();
     sslClient.flush();
-  } 
-  else 
+  }
+  else
   {
     // if you didn't get a connection to the server:
     Serial.println("connection failed");
   }
-  
+
   beginMicros = micros();
 }
 
@@ -98,7 +98,7 @@ void setup()
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
   delay(2000);
-  
+
   Serial.print("\nStart WebClientMulti_SSL_LAN8720 on " + String(BOARD_NAME));
   Serial.println(" with " + String(SHIELD_TYPE));
   Serial.println(ETHERNET_WEBSERVER_SSL_STM32_VERSION);

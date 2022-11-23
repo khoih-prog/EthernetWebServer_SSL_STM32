@@ -2,11 +2,11 @@
   WebClient_SSL_LAN8720.ino - Dead simple SSL WebClient for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
  *****************************************************************************************************************************/
 
@@ -42,7 +42,7 @@ void setup()
 {
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
-  
+
   // give the board 2 seconds to initialize:
   delay(2000);
 
@@ -78,11 +78,11 @@ void setup()
     Serial.print("Connected to ");
 
 #if ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET_ENC || USE_UIP_ETHERNET )
-    Serial.println(client.remoteIP());  
-#else    
-    Serial.println(server_host); 
+    Serial.println(client.remoteIP());
+#else
+    Serial.println(server_host);
 #endif
-    
+
     Serial.print("Took: ");
     Serial.println(time);
 
@@ -102,24 +102,24 @@ void setup()
 
   beginMicros = micros();
 
-  
+
 #if 0
   // For testing only to use micros() instead of analogRead()
   uint8_t rng_seeds[16];
   // take the bottom 8 bits of the analog read
-  
+
   // KH mod to use micro()
   Serial.println("Using micros()");
-  
+
   for (uint8_t i = 0; i < sizeof rng_seeds; i++)
   {
     rng_seeds[i] = static_cast<uint8_t>((uint16_t) micros() * (uint16_t) (micros() >> 8));
     Serial.print(rng_seeds[i], HEX);
     Serial.print(" ");
   }
-  
+
   Serial.println("\nUsing analogRead()");
-  
+
   for (uint8_t i = 0; i < sizeof rng_seeds; i++)
   {
     rng_seeds[i] = static_cast<uint8_t>(analogRead(rand_pin));

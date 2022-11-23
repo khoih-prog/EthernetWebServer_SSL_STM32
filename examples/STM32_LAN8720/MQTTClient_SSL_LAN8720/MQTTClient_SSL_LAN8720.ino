@@ -2,11 +2,11 @@
   MQTTClient_SSL_LAN8720.ino - Dead simple SSL MQTT Client for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
  *****************************************************************************************************************************/
 
@@ -48,17 +48,17 @@ unsigned long lastMsg = 0;
 // Initialize the SSL client library
 // Arguments: EthernetClient, our trust anchors
 
-void callback(char* topic, byte* payload, unsigned int length) 
+void callback(char* topic, byte* payload, unsigned int length)
 {
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
-  
-  for (unsigned int i = 0; i < length; i++) 
+
+  for (unsigned int i = 0; i < length; i++)
   {
     Serial.print((char)payload[i]);
   }
-  
+
   Serial.println();
 }
 
@@ -67,10 +67,10 @@ EthernetSSLClient ethClientSSL(ethClient, TAs, (size_t)TAs_NUM);
 
 PubSubClient client(mqttServer, 8883, callback, ethClientSSL);
 
-void reconnect() 
+void reconnect()
 {
   // Loop until we're reconnected
-  while (!client.connected()) 
+  while (!client.connected())
   {
     Serial.print("Attempting MQTT connection to ");
     Serial.print(mqttServer);
@@ -79,7 +79,7 @@ void reconnect()
     if (client.connect(ID))
     {
       Serial.println("...connected");
-      
+
       // Once connected, publish an announcement...
       String data = "Hello from MQTTClient_SSL on " + String(BOARD_NAME);
 
@@ -88,18 +88,18 @@ void reconnect()
       Serial.println("Published connection message successfully!");
       Serial.print("Subcribed to: ");
       Serial.println(subTopic);
-      
+
       // ... and resubscribe
       client.subscribe(subTopic);
       // for loopback testing
       client.subscribe(TOPIC);
-    } 
-    else 
+    }
+    else
     {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
-      
+
       // Wait 5 seconds before retrying
       delay(5000);
     }
@@ -118,7 +118,7 @@ void setup()
 
   // Enable mutual TLS with SSLClient
   ethClientSSL.setMutualAuthParams(mTLS);
-  
+
   // start the ethernet connection and the server:
   // Use DHCP dynamic IP and random mac
   uint16_t index = millis() % NUMBER_OF_MAC;
@@ -136,18 +136,18 @@ void setup()
 String data         = "Hello from MQTTClient_SSL_LAN8720 on " + String(BOARD_NAME);
 const char *pubData = data.c_str();
 
-void loop() 
+void loop()
 {
   static unsigned long now;
-  
-  if (!client.connected()) 
+
+  if (!client.connected())
   {
     reconnect();
   }
 
   // Sending Data
   now = millis();
-  
+
   if (now - lastMsg > MQTT_PUBLISH_INTERVAL_MS)
   {
     lastMsg = now;
@@ -160,6 +160,6 @@ void loop()
     Serial.print("Message Send : " + String(TOPIC) + " => ");
     Serial.println(data);
   }
-  
+
   client.loop();
 }

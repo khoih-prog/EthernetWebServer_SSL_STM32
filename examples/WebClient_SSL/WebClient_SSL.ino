@@ -2,11 +2,11 @@
   WebClient_SSL.ino - Dead simple SSL WebClient for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
  *****************************************************************************************************************************/
 
@@ -42,6 +42,7 @@ void setup()
 {
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
   Serial.print("\nStart WebClient_SSL on " + String(BOARD_NAME));
@@ -50,40 +51,40 @@ void setup()
 #if USE_ETHERNET_GENERIC
   Serial.println(ETHERNET_GENERIC_VERSION);
 #endif
-  
+
   Serial.println(ETHERNET_WEBSERVER_SSL_STM32_VERSION);
 
 #if !(USE_BUILTIN_ETHERNET)
-  #if (USING_SPI2)
-    #if defined(CUR_PIN_MISO)
-      ET_LOGWARN(F("Default SPI pinout:"));
-      ET_LOGWARN1(F("MOSI:"), CUR_PIN_MOSI);
-      ET_LOGWARN1(F("MISO:"), CUR_PIN_MISO);
-      ET_LOGWARN1(F("SCK:"),  CUR_PIN_SCK);
-      ET_LOGWARN1(F("SS:"),   CUR_PIN_SS);
-      ET_LOGWARN(F("========================="));
-    #endif
-  #else
-    ET_LOGWARN(F("Default SPI pinout:"));
-    ET_LOGWARN1(F("MOSI:"), MOSI);
-    ET_LOGWARN1(F("MISO:"), MISO);
-    ET_LOGWARN1(F("SCK:"),  SCK);
-    ET_LOGWARN1(F("SS:"),   SS);
-    ET_LOGWARN(F("========================="));
-  #endif
+#if (USING_SPI2)
+#if defined(CUR_PIN_MISO)
+  ET_LOGWARN(F("Default SPI pinout:"));
+  ET_LOGWARN1(F("MOSI:"), CUR_PIN_MOSI);
+  ET_LOGWARN1(F("MISO:"), CUR_PIN_MISO);
+  ET_LOGWARN1(F("SCK:"),  CUR_PIN_SCK);
+  ET_LOGWARN1(F("SS:"),   CUR_PIN_SS);
+  ET_LOGWARN(F("========================="));
+#endif
+#else
+  ET_LOGWARN(F("Default SPI pinout:"));
+  ET_LOGWARN1(F("MOSI:"), MOSI);
+  ET_LOGWARN1(F("MISO:"), MISO);
+  ET_LOGWARN1(F("SCK:"),  SCK);
+  ET_LOGWARN1(F("SS:"),   SS);
+  ET_LOGWARN(F("========================="));
+#endif
 #endif
 
 #if !(USE_BUILTIN_ETHERNET || USE_UIP_ETHERNET)
   // For other boards, to change if necessary
-  #if ( USE_ETHERNET_GENERIC || USE_ETHERNET_ENC )
+#if ( USE_ETHERNET_GENERIC || USE_ETHERNET_ENC )
   Ethernet.init (USE_THIS_SS_PIN);
 
-  #elif USE_CUSTOM_ETHERNET
+#elif USE_CUSTOM_ETHERNET
   // You have to add initialization for your Custom Ethernet here
   // This is just an example to setCSPin to USE_THIS_SS_PIN, and can be not correct and enough
   //Ethernet.init(USE_THIS_SS_PIN);
 
-  #endif  //( ( USE_ETHERNET_GENERIC || USE_ETHERNET_ENC )
+#endif  //( ( USE_ETHERNET_GENERIC || USE_ETHERNET_ENC )
 #endif
 
   // start the ethernet connection and the server:
@@ -114,11 +115,11 @@ void setup()
     Serial.print("Connected to ");
 
 #if ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET_ENC || USE_UIP_ETHERNET )
-    Serial.println(client.remoteIP());  
-#else    
-    Serial.println(server_host); 
+    Serial.println(client.remoteIP());
+#else
+    Serial.println(server_host);
 #endif
-    
+
     Serial.print("Took: ");
     Serial.println(time);
 
@@ -138,24 +139,24 @@ void setup()
 
   beginMicros = micros();
 
-  
+
 #if 0
   // For testing only to use micros() instead of analogRead()
   uint8_t rng_seeds[16];
   // take the bottom 8 bits of the analog read
-  
+
   // KH mod to use micro()
   Serial.println("Using micros()");
-  
+
   for (uint8_t i = 0; i < sizeof rng_seeds; i++)
   {
     rng_seeds[i] = static_cast<uint8_t>((uint16_t) micros() * (uint16_t) (micros() >> 8));
     Serial.print(rng_seeds[i], HEX);
     Serial.print(" ");
   }
-  
+
   Serial.println("\nUsing analogRead()");
-  
+
   for (uint8_t i = 0; i < sizeof rng_seeds; i++)
   {
     rng_seeds[i] = static_cast<uint8_t>(analogRead(rand_pin));

@@ -2,11 +2,11 @@
   MQTTClient_SSL_Complex_LAN8720.ino - Dead simple SSL MQTT Client for Ethernet shields
 
   For STM32F/L/H/G/WB/MP1 with built-in Ethernet LAN8742A (Nucleo-144, DISCOVERY, etc) or W5x00/ENC28J60 shield/module
-  
+
   EthernetWebServer_SSL_STM32 is a library for STM32 using the Ethernet shields to run WebServer and Client with/without SSL
 
   Use SSLClient Library code from https://github.com/OPEnSLab-OSU/SSLClient
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/EthernetWebServer_SSL_STM32
  *****************************************************************************************************************************/
 
@@ -79,7 +79,7 @@ void reconnect()
     if (client.connect(ID))
     {
       Serial.println("...connected");
-      
+
       // Once connected, publish an announcement...
       String data = "Hello from MQTTClient_SSL_Complex on " + String(BOARD_NAME);
 
@@ -88,7 +88,7 @@ void reconnect()
       Serial.println("Published connection message successfully!");
       Serial.print("Subcribed to: ");
       Serial.println(subTopic);
-      
+
       // ... and resubscribe
       client.subscribe(subTopic);
       // for loopback testing
@@ -136,7 +136,7 @@ void setup()
 void loop()
 {
   static unsigned long now;
-  
+
   if (!client.connected())
   {
     reconnect();
@@ -159,6 +159,6 @@ void loop()
     Serial.print("Message Send : " + String(TOPIC) + " => ");
     Serial.println(data);
   }
-  
+
   client.loop();
 }
